@@ -426,7 +426,7 @@ RUN['IncJogStat'] = IntVar()
 RUN['fullRot'] = IntVar()
 RUN['pick180'] = IntVar()
 RUN['pickClosest'] = IntVar()
-RUN['autoBG'] = IntVar()
+RUN['autoBG'] = tk.IntVar(value=0)
 RUN['estopActive'] = False
 RUN['posOutreach'] = False
 RUN['gcodeSpeed'] = "10"
@@ -541,7 +541,6 @@ RUN['render_window'] = None
 
 # Input Devices
 RUN['xboxUse'] = None
-RUN['selectedTemplate'] = None
 RUN['selectedCam'] = None
 
 
@@ -9474,7 +9473,7 @@ def sync_calibration_to_fields():
   J4aEntryField.insert(0,str(CAL['J4aDHpar']))
   J5aEntryField.insert(0,str(CAL['J5aDHpar']))
   J6aEntryField.insert(0,str(CAL['J6aDHpar']))
-
+  visoptions.set(str(CAL['curCam']))
 
   # Add Encoder control checkboxes
   # Add auto-calibration settings
@@ -9758,23 +9757,30 @@ def show_frame():
         live_lbl.after(10, show_frame)
 
 def start_vid():
-    #global cam_on, cap
-    #global cap
     stop_vid()
     RUN['cam_on'] = True
     curVisStingSel = visoptions.get()
-    l = len(camList)
-    for i in range(l):
-      if (visoptions.get() == camList[i]):
-        RUN['selectedCam'] = i
-    RUN['cap'] = cv2.VideoCapture(RUN['selectedCam']) 
+    logger.debug(f"start_vid.curVisStingSel: {curVisStingSel}")
+    logger.debug(f"start_vid.camList: {camList}")
+
+    #OS Enumeration order isn't reliable on Linux, use the detected device ID instead
+    match CE['Platform']['OS']:
+      case "Windows":
+        l = len(camList)
+        for i in range(l):
+          if (visoptions.get() == camList[i]):
+            logger.debug(f"Selected Camera detected on list index: {i}")
+            RUN['selectedCam'] = i
+      case "Linux":
+        RUN['selectedCam'] = camMap.get(visoptions.get())
+
+    RUN['cap'] = cv2.VideoCapture(RUN['selectedCam'])
     show_frame()
 
 
 
 
 def stop_vid():
-    #global cam_on
     RUN['cam_on'] = False
     
     if RUN['cap']:
@@ -9783,22 +9789,24 @@ def stop_vid():
 #vismenu.size
 
 def take_pic():
-  # global RUN['selectedCam']
-  #global cap
-  # global RUN['BGavg']
-  # global RUN['mX1']
-  # global RUN['mY1']
-  # global RUN['mX2']
-  # global RUN['mY2']
-
+  
   if(RUN['cam_on']):
     ret, frame = RUN['cap'].read()
   else:
     curVisStingSel = visoptions.get()
-    l = len(camList)
-    for i in range(l):
-      if (visoptions.get() == camList[i]):
-        RUN['selectedCam'] = i
+
+
+    #OS Enumeration order isn't reliable on Linux, use the detected device ID instead
+    match CE['Platform']['OS']:
+      case "Windows":
+        l = len(camList)
+        for i in range(l):
+          if (visoptions.get() == camList[i]):
+            logger.debug(f"Selected Camera detected on list index: {i}")
+            RUN['selectedCam'] = i
+      case "Linux":
+        RUN['selectedCam'] = camMap.get(visoptions.get())
+
     RUN['cap'] = cv2.VideoCapture(RUN['selectedCam']) 
     ret, frame = RUN['cap'].read()
 
@@ -9859,28 +9867,36 @@ def take_pic():
 
   imgtk = ImageTk.PhotoImage(image=img) 
   vid_lbl.imgtk = imgtk    
-  vid_lbl.configure(image=imgtk) 
-  filename = 'curImage.jpg'
-  cv2.imwrite(filename, cv2image)
+  vid_lbl.configure(image=imgtk)
+  temp_dir = os.path.dirname(os.path.abspath(__file__))
+  temp_file = os.path.join(temp_dir, "curImage.jpg")
+
+  #filename = 'curImage.jpg'
+  cv2.imwrite(temp_file, cv2image)
+
+  #If cam was off before, turn it back off
+  if not RUN['cam_on']:
+    RUN['cap'].release()
 
 
 def mask_pic():
-  # global RUN['selectedCam']
-  #global cap
-  # global RUN['BGavg']
-  # global RUN['mX1']
-  # global RUN['mY1']
-  # global RUN['mX2']
-  # global RUN['mY2']
-
   if(RUN['cam_on']):
     ret, frame = RUN['cap'].read()
   else:
     curVisStingSel = visoptions.get()
-    l = len(camList)
-    for i in range(l):
-      if (visoptions.get() == camList[i]):
-        RUN['selectedCam'] = i
+
+    #OS Enumeration order isn't reliable on Linux, use the detected device ID instead
+    match CE['Platform']['OS']:
+      case "Windows":
+        l = len(camList)
+        for i in range(l):
+          if (visoptions.get() == camList[i]):
+            logger.debug(f"Selected Camera detected on list index: {i}")
+            RUN['selectedCam'] = i
+      case "Linux":
+        RUN['selectedCam'] = camMap.get(visoptions.get())
+
+
     RUN['cap'] = cv2.VideoCapture(RUN['selectedCam']) 
     ret, frame = RUN['cap'].read()
   brightness = int(VisBrightSlide.get())
@@ -9903,25 +9919,18 @@ def mask_pic():
   #img = Image.fromarray(cv2image).resize((640,480))
   #imgtk = ImageTk.PhotoImage(image=img) 
   #vid_lbl.imgtk = imgtk    
-  #vid_lbl.configure(image=imgtk) 
-  filename = 'curImage.jpg'
-  cv2.imwrite(filename, cv2image)
+  #vid_lbl.configure(image=imgtk)
+  temp_dir = os.path.dirname(os.path.abspath(__file__))
+  temp_file = os.path.join(temp_dir, "curImage.jpg")
+
+  #filename = 'curImage.jpg'
+  cv2.imwrite(temp_file, cv2image)
 
   
 
 
 
 def mask_crop(event, x, y, flags, param):
-    # global RUN['x_start'], RUN['y_start'], RUN['x_end'], RUN['y_end'], RUN['cropping']
-    #global oriImage
-    # global RUN['box_points']
-    # global RUN['button_down']
-    # global RUN['mX1']
-    # global RUN['mY1']
-    # global RUN['mX2']
-    # global RUN['mY2']
-
-
     cropDone = False
     
 
@@ -9981,21 +9990,26 @@ def mask_crop(event, x, y, flags, param):
         img = Image.fromarray(RUN['oriImage'])
         imgtk = ImageTk.PhotoImage(image=img) 
         vid_lbl.imgtk = imgtk    
-        vid_lbl.configure(image=imgtk) 
-        filename = 'curImage.jpg'
-        cv2.imwrite(filename, RUN['oriImage'])
+        vid_lbl.configure(image=imgtk)
+
+        temp_dir = os.path.dirname(os.path.abspath(__file__))
+        temp_file = os.path.join(temp_dir, "curImage.jpg")
+        #filename = 'curImage.jpg'
+        cv2.imwrite(temp_file, RUN['oriImage'])
         cv2.destroyAllWindows()
 
 
 
 def selectMask():
-  #global oriImage
-  # global RUN['button_down']
   RUN['button_down'] = False
   RUN['x_start'], RUN['y_start'], RUN['x_end'], RUN['y_end'] = 0, 0, 0, 0
   mask_pic()
-
-  image = cv2.imread('curImage.jpg')
+  temp_dir = os.path.dirname(os.path.abspath(__file__))
+  temp_file = os.path.join(temp_dir, "curImage.jpg")
+  image = cv2.imread(temp_file)
+  if image is None:
+    logger.error(f"Error reading file: {temp_file}")
+    return
   RUN['oriImage'] = image.copy()
   
   cv2.namedWindow("image")
@@ -10005,14 +10019,8 @@ def selectMask():
 
 
 def mouse_crop(event, x, y, flags, param):
-    # global RUN['x_start'], RUN['y_start'], RUN['x_end'], RUN['y_end'], RUN['cropping']
-    #global oriImage
-    # global RUN['box_points']
-    # global RUN['button_down']
-
     cropDone = False
     
-
     if (not RUN['button_down']) and (event == cv2.EVENT_LBUTTONDOWN):
         RUN['x_start'], RUN['y_start'], RUN['x_end'], RUN['y_end'] = x, y, x, y
         RUN['cropping'] = True
@@ -10043,7 +10051,8 @@ def mouse_crop(event, x, y, flags, param):
         if len(refPoint) == 2: #when two points were found
             roi = RUN['oriImage'][refPoint[0][1]:refPoint[1][1], refPoint[0][0]:refPoint[1][0]]
             
-            cv2.imshow("Cropped", roi)
+            #cv2.imshow("Cropped", roi)
+            cv2.imshow("image", roi)
             USER_INP = simpledialog.askstring(title="Teach Vision Object",
                                   prompt="Save Object As:")
             templateName = USER_INP+".jpg"                      
@@ -10054,25 +10063,41 @@ def mouse_crop(event, x, y, flags, param):
 
 
 def selectTemplate():
-  #global oriImage
-  # global RUN['button_down']
+  '''
+  Beginning of workflow for Teach Object
+  '''
   RUN['button_down'] = False
   RUN['x_start'], RUN['y_start'], RUN['x_end'], RUN['y_end'] = 0, 0, 0, 0
-  image = cv2.imread('curImage.jpg')
+  temp_dir = os.path.dirname(os.path.abspath(__file__))
+  temp_file = os.path.join(temp_dir, "curImage.jpg")
+
+  image = None
+  logger.debug(f"Opening temp file: {temp_file}")
+  image = cv2.imread(temp_file)
+
   RUN['oriImage'] = image.copy()
   
-  cv2.namedWindow("image")
+  #cv2.namedWindow("image")
+  #cv2.setMouseCallback("image", mouse_crop)
+  #cv2.imshow("image", image)
+
+  cv2.namedWindow("image", cv2.WINDOW_NORMAL)  # optional but helps on Linux
   cv2.setMouseCallback("image", mouse_crop)
   cv2.imshow("image", image)
+  cv2.waitKey(0)  # <- required to process events and actually paint
+  #cv2.destroyAllWindows()
 
 
 
 
 def snapFind():
-  # global RUN['selectedTemplate']
-  # global RUN['BGavg']
   take_pic()
-  template = RUN['selectedTemplate'].get()
+  # This was always "" assuming curImage is what is wanted here
+  #template = RUN['selectedTemplate'].get()
+  temp_dir = os.path.dirname(os.path.abspath(__file__))
+  temp_file = os.path.join(temp_dir, "curImage.jpg")  
+  template = temp_file
+
   min_score = float(VisScoreEntryField.get())*.01
   CAL['autoBGVal'] = int(RUN['autoBG'].get())
   if(CAL['autoBGVal']==1):
@@ -10095,10 +10120,6 @@ def rotate_image(img,angle,background):
     return result
 
 def visFind(template,min_score,background):
-    # global RUN['xMMpos']
-    # global RUN['yMMpos']
-    #global autoBG
-
     if(background == "Auto"):
       background = RUN['BGavg']
       VisBacColorEntryField.configure(state='enabled')  
@@ -10106,15 +10127,22 @@ def visFind(template,min_score,background):
       VisBacColorEntryField.insert(0,str(RUN['BGavg']))
       VisBacColorEntryField.configure(state='disabled')  
       
-
     green = (0,255,0)
     red = (255,0,0)
     blue = (0,0,255)
     dkgreen = (0,128,0)
     status = "fail"
     highscore = 0
-    img1 = cv2.imread('curImage.jpg')  # target Image
+    temp_dir = os.path.dirname(os.path.abspath(__file__))
+    temp_file = os.path.join(temp_dir, "curImage.jpg")
+    img1 = cv2.imread(temp_file)  # target Image
+    if img1 is None:
+      logger.error(f"Error opening file: {temp_file}")
+      return
     img2 = cv2.imread(template)  # target Image
+    if img2 is None:
+      logger.error(f"Error opening file: {template}")
+      return
     
     #method = cv2.TM_CCOEFF_NORMED
     #method = cv2.TM_CCORR_NORMED
@@ -10407,8 +10435,7 @@ def visFind(template,min_score,background):
 
 
 def updateVisOp():
-  # global RUN['selectedTemplate']
-  RUN['selectedTemplate'] = StringVar()
+  #RUN['selectedTemplate'] = StringVar()
   if getattr(sys, 'frozen', False):
     folder = os.path.dirname(sys.executable)
   elif __file__:
@@ -10422,8 +10449,11 @@ def updateVisOp():
 def VisOpUpdate(foo):
   # global RUN['selectedTemplate']
   file = RUN['selectedTemplate'].get()
-  logger.info(file)
+  logger.info(f"{file} selected as template file")
   img = cv2.imread(file, cv2.IMREAD_COLOR)
+  if img is None:
+    logger.error(f"Error reading file: {file}")
+    return
   img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)  
 
 
@@ -14833,19 +14863,25 @@ match CE['Platform']['OS']:
     try:
       # If we have real cams, preselect the first real one; otherwise keep the placeholder
       if camList and camList[0] != "Select a Camera":
-        vismenu = OptionMenu(tab6, visoptions, camList[0], *camList)
+        vismenu = OptionMenu(tab6, visoptions, camList[0], *camList, command=on_camera_select)
         visoptions.set(camList[0])  # ensures the real cam (e.g., Logi C270) is selected
       else:
-        vismenu = OptionMenu(tab6, visoptions, "Select a Camera")
+        vismenu = OptionMenu(tab6, visoptions, "Select a Camera", command=on_camera_select)
       vismenu.config(width=20)
       vismenu.place(x=10, y=10)
     except Exception:
       logger.error("no camera")
 
+    def on_camera_select(chosen_label):
+      CAL['curCam'] = chosen_label
+      logger.debug(f"Debug - User picked: {chosen_label}")
+
   case "Linux":
     # Build label->id map
-    label_to_id = {c.label: c.id for c in CE['Cameras']['Enum']}
-    camList = list(label_to_id.keys())
+    camMap = {c.label: c.id for c in CE['Cameras']['Enum']}
+    camList = list(camMap.keys())
+    logger.debug(f"camMap value: {camMap}")
+    logger.debug(f"Cameras Detected: {camList}")
 
     selected_label = tk.StringVar(value=(camList[0] if camList else "Select a Camera"))
 
@@ -14853,8 +14889,9 @@ match CE['Platform']['OS']:
     visoptions.set("Select a Camera")
 
     def on_camera_select(chosen_label):
-      cam_id = label_to_id.get(chosen_label, "None")
-      logger.debug("Debug - User picked:", chosen_label, " -> using id:", cam_id)
+      cam_id = camMap.get(chosen_label, "None")
+      CAL['curCam'] = visoptions.get()
+      logger.debug(f"Debug - User picked: {chosen_label} -> using id: {cam_id}")
 
     try:
       vismenu = OptionMenu(tab6, visoptions, selected_label.get(), *camList, command=on_camera_select)
@@ -14862,7 +14899,6 @@ match CE['Platform']['OS']:
       vismenu.place(x=10, y=10)
     except Exception:
       logger.error("no camera")
-
 
 
 
@@ -15482,7 +15518,8 @@ if (CAL['pickClosestVal'] == 1):
   RUN['pickClosest'].set(True)
 if (CAL['pick180Val'] == 1):
   RUN['pick180'].set(True)  
-visoptions.set(CAL['curCam'])
+if CAL['curCam'] in camList:
+  visoptions.set(CAL['curCam'])
 if (CAL['fullRotVal'] == 1):
   RUN['fullRot'].set(True)
 if (CAL['autoBGVal'] == 1):
@@ -15657,6 +15694,17 @@ tab1.after(100, setCom)
 root.mainloop()
 
 
-
 #manEntryField.delete(0, 'end')
 #manEntryField.insert(0,value)
+
+
+# Exit cleanly
+try:
+  if root.winfo_exists():
+    root.destroy()
+except:
+  pass
+
+sys.exit(0)
+
+

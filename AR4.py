@@ -213,7 +213,7 @@ if CE['Platform']['IS_RPI'] and CE['Platform']['IS_HEADLESS']:
   root.tk.call('tk', 'scaling', rpi_scale)
   root.geometry(f'{rpi_x_size}x{rpi_y_size}+0+0')
 else:
-  root.geometry('1600x900+0+0')  # Adjusted for RPI compatibility (1600x900 minimum)
+  root.geometry('1920x1080+0+0')  # Adjusted for RPI compatibility (1600x900 minimum)
   #root.geometry("1850x980+0+0")  # Original size
 
 root.resizable(width=True, height=True)
@@ -11106,7 +11106,7 @@ def posRegFieldVisible(self):
     SavePosEntryField.grid_remove()  # Hide the field
 
 # Tkinter variables for Tab 1
-speedOption = StringVar(tab1)
+speedOption = StringVar(tab1, value="Percent")
 options = StringVar(tab1)
 
 # Entry fields for command builders (created here, placed in frames later)
@@ -11178,36 +11178,36 @@ leftPanel.grid_columnconfigure(1, weight=1)
 
 # Row 0: Program label and entry (with more top padding)
 ProgLab = Label(leftPanel, text="Program:")
-ProgLab.grid(row=0, column=0, sticky="w", padx=5, pady=(8, 2))
+ProgLab.grid(row=0, column=0, sticky="w", padx=2, pady=(4, 2))
 
 ProgEntryField = Entry(leftPanel, width=15, justify="center")
-ProgEntryField.grid(row=0, column=1, sticky="ew", padx=5, pady=(8, 2))
+ProgEntryField.grid(row=0, column=1, sticky="ew", padx=2, pady=(4, 2))
 
 # Row 1: Load button
 loadBut = ttk.Button(leftPanel, text="Load", command=loadProg)
-loadBut.grid(row=1, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+loadBut.grid(row=1, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 # Row 2: New Prog button
 savProg = ttk.Button(leftPanel, text="New Prog", command=CreateProg)
-savProg.grid(row=2, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+savProg.grid(row=2, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 # Row 3: Incremental Jog checkbox and entry field
 IncJogCbut = Checkbutton(leftPanel, text="Inc Jog", variable=RUN['IncJogStat'])
-IncJogCbut.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+IncJogCbut.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 
 incrementEntryField = Entry(leftPanel, width=6, justify="center")
-incrementEntryField.grid(row=3, column=1, sticky="ew", padx=5, pady=2)
+incrementEntryField.grid(row=3, column=1, sticky="ew", padx=2, pady=2)
 
 # Row 4: Current Row
 curRowLab = Label(leftPanel, text="Current Row:")
-curRowLab.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+curRowLab.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 
 curRowEntryField = Entry(leftPanel, width=6, justify="center")
-curRowEntryField.grid(row=4, column=1, sticky="ew", padx=5, pady=2)
+curRowEntryField.grid(row=4, column=1, sticky="ew", padx=2, pady=2)
 
 # Row 5: Motion controls frame (with Xbox button at bottom)
-speedFrame = LabelFrame(leftPanel, text="Motion", padding=5)
-speedFrame.grid(row=5, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+speedFrame = LabelFrame(leftPanel, text="Motion", padding=2)
+speedFrame.grid(row=5, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 speedFrame.grid_columnconfigure(1, weight=1)
 
@@ -11262,8 +11262,8 @@ xboxBut.config(image=xboxPhoto)
 xboxBut.grid(row=5, column=0, columnspan=3, pady=(5, 0))
 
 # Row 6: Virtual controls frame
-virtualFrame = LabelFrame(leftPanel, text="Virtual", padding=5)
-virtualFrame.grid(row=6, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+virtualFrame = LabelFrame(leftPanel, text="Virtual", padding=2)
+virtualFrame.grid(row=6, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 virtualFrame.grid_columnconfigure(0, weight=1)
 
@@ -11273,8 +11273,8 @@ virtRobBut.grid(row=0, column=0, sticky="ew", padx=2, pady=2)
 offline_button = ttk.Button(virtualFrame, text="Run Offline", width=20, command=toggle_offline_mode, style="Online.TButton")
 offline_button.grid(row=1, column=0, sticky="ew", padx=2, pady=2)
 # Row 7: Position Commands frame
-posFrame = LabelFrame(leftPanel, text="Position Commands", padding=5)
-posFrame.grid(row=7, column=0, columnspan=2, sticky="new", padx=5, pady=(2, 5))
+posFrame = LabelFrame(leftPanel, text="Position Commands", padding=2)
+posFrame.grid(row=7, column=0, columnspan=2, sticky="new", padx=2, pady=(2, 5))
 
 posFrame.grid_columnconfigure(0, weight=1)
 
@@ -11303,8 +11303,8 @@ CalibrateBut = autoCalBut  # Alias for compatibility
 autoCalBut.grid(row=6, column=0, sticky="ew", padx=2, pady=2)
 
 # Row 8: Vision container
-visionFrame = LabelFrame(leftPanel, text="Vision", padding=5)
-visionFrame.grid(row=8, column=0, columnspan=2, sticky="ew", padx=5, pady=(2, 5))
+visionFrame = LabelFrame(leftPanel, text="Vision", padding=2)
+visionFrame.grid(row=8, column=0, columnspan=2, sticky="ew", padx=2, pady=(2, 5))
 
 visionFrame.grid_columnconfigure(0, weight=1)
 visionFrame.grid_columnconfigure(1, weight=1)
@@ -11320,7 +11320,7 @@ camOffBut.grid(row=0, column=2, columnspan=2, sticky="ew", padx=2, pady=2)
 
 # Row 1: Vision Find button
 visFindBut = ttk.Button(visionFrame, text="Vision Find", command=insertvisFind)
-visFindBut.grid(row=1, column=0, columnspan=2, sticky="ew", padx=2, pady=(5, 2))
+visFindBut.grid(row=1, column=0, columnspan=2, sticky="ew", padx=2, pady=(2, 2))
 
 # Row 2: Pass Tab and Fail Tab labels
 Label(visionFrame, text="Pass Tab", font=("Arial", 8)).grid(row=2, column=0, sticky="e", padx=(2, 1))
@@ -11340,8 +11340,8 @@ VisBacColorEntryField.insert(0, "116, 116, 116")  # Default background color
 VisScoreEntryField.insert(0, "85")  # Default score threshold
 
 # Row 9: Wait container
-waitContainer = LabelFrame(leftPanel, text="Wait", padding=5)
-waitContainer.grid(row=9, column=0, columnspan=2, sticky="ew", padx=5, pady=(2, 5))
+waitContainer = LabelFrame(leftPanel, text="Wait", padding=2)
+waitContainer.grid(row=9, column=0, columnspan=2, sticky="ew", padx=2, pady=(2, 5))
 
 waitContainer.grid_columnconfigure(0, weight=1)
 waitContainer.grid_columnconfigure(1, weight=0)
@@ -11370,14 +11370,13 @@ centerPanel.grid_columnconfigure(0, weight=1)
 
 # Row 0: Status message
 runStatusLab = Label(centerPanel, text="SYSTEM STARTING - PLEASE WAIT", font=("Arial", 10, "bold"), style="OK.TLabel")
-runStatusLab.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
-
+runStatusLab.grid(row=0, column=0, sticky="ew", padx=2, )
 # Create alias for compatibility with existing code
 almStatusLab = runStatusLab
 
 # Row 0.5: Play controls
 playFrame = Frame(centerPanel)
-playFrame.grid(row=1, column=0, sticky="ew", padx=5, pady=5)
+playFrame.grid(row=1, column=0, sticky="ew", padx=2, pady=2)
 
 for i in range(4):
     playFrame.grid_columnconfigure(i, weight=1)
@@ -11417,7 +11416,7 @@ stopBut.grid(row=0, column=3, sticky="nsew", padx=2, pady=0)
 
 # Row 2: Program view with scrollbar
 progframe = Frame(centerPanel, relief="sunken", borderwidth=1)
-progframe.grid(row=2, column=0, sticky="nsew", padx=5, pady=5)
+progframe.grid(row=2, column=0, sticky="nsew", padx=2, pady=2)
 
 scrollbar = Scrollbar(progframe)
 scrollbar.pack(side=RIGHT, fill=Y)
@@ -11429,8 +11428,8 @@ tab1.progView.pack(side=LEFT, fill=BOTH, expand=True)
 scrollbar.config(command=tab1.progView.yview)
 
 # Row 3: Manual Program Entry
-manEntryFrame = LabelFrame(centerPanel, text="Manual Program Entry", padding=5)
-manEntryFrame.grid(row=3, column=0, sticky="ew", padx=5, pady=5)
+manEntryFrame = LabelFrame(centerPanel, text="Manual Program Entry", padding=2)
+manEntryFrame.grid(row=3, column=0, sticky="ew", padx=2, pady=2)
 
 # Configure equal width columns for buttons
 for i in range(5):
@@ -11484,8 +11483,8 @@ rightPanel.grid_columnconfigure(0, weight=1)
 rightPanel.grid_columnconfigure(1, weight=1)
 
 # Joint controls container (J1-J6)
-jointFrame = LabelFrame(rightPanel, text="Joint Control (J1-J6)", padding=5)
-jointFrame.grid(row=0, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+jointFrame = LabelFrame(rightPanel, text="Joint Control (J1-J6)", padding=2)
+jointFrame.grid(row=0, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 jointFrame.grid_columnconfigure(0, weight=1)
 jointFrame.grid_columnconfigure(1, weight=1)
@@ -11730,8 +11729,8 @@ J6jogslide.config(command=J6sliderUpdate)
 J6jogslide.bind("<ButtonRelease-1>", J6sliderExecute)
 
 # Cartesian jog controls
-CartjogFrame = LabelFrame(rightPanel, text="Cartesian Control (X Y Z Rz Ry Rx)", padding=5)
-CartjogFrame.grid(row=1, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+CartjogFrame = LabelFrame(rightPanel, text="Cartesian Control (X Y Z Rz Ry Rx)", padding=2)
+CartjogFrame.grid(row=1, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 CartjogFrame.grid_columnconfigure(0, weight=1)
 CartjogFrame.grid_columnconfigure(1, weight=1)
@@ -11896,8 +11895,8 @@ RxjogPosBut.bind("<ButtonPress>", SelRxjogPos)
 RxjogPosBut.bind("<ButtonRelease>", StopJog)
 
 # Tool frame controls
-TooljogFrame = LabelFrame(rightPanel, text="Tool Frame Control (Tx Ty Tz Trz Try Trx)", padding=5)
-TooljogFrame.grid(row=2, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+TooljogFrame = LabelFrame(rightPanel, text="Tool Frame Control (Tx Ty Tz Trz Try Trx)", padding=2)
+TooljogFrame.grid(row=2, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 TooljogFrame.grid_columnconfigure(0, weight=1)
 TooljogFrame.grid_columnconfigure(1, weight=1)
@@ -12042,15 +12041,15 @@ TRxjogPosBut.bind("<ButtonRelease>", StopJog)
 
 
 # Extra axes (J7, J8, J9)
-extraAxesFrame = LabelFrame(rightPanel, text="Additional Axes", padding=5)
-extraAxesFrame.grid(row=7, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+extraAxesFrame = LabelFrame(rightPanel, text="Additional Axes", padding=2)
+extraAxesFrame.grid(row=7, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 extraAxesFrame.grid_columnconfigure(0, weight=1)
 extraAxesFrame.grid_columnconfigure(1, weight=1)
 extraAxesFrame.grid_columnconfigure(2, weight=1)
 
 # J7 Frame
-J7jogFrame = Frame(extraAxesFrame, relief="raised", borderwidth=1, padding=5)
+J7jogFrame = Frame(extraAxesFrame, relief="raised", borderwidth=1, padding=2)
 J7jogFrame.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
 
 J7jogFrame.grid_columnconfigure(0, weight=1)
@@ -12121,7 +12120,7 @@ J7jogslide.config(command=J7sliderUpdate)
 J7jogslide.bind("<ButtonRelease-1>", J7sliderExecute)
 
 # J8 Frame
-J8jogFrame = Frame(extraAxesFrame, relief="raised", borderwidth=1, padding=5)
+J8jogFrame = Frame(extraAxesFrame, relief="raised", borderwidth=1, padding=2)
 J8jogFrame.grid(row=0, column=1, sticky="nsew", padx=2, pady=2)
 
 J8jogFrame.grid_columnconfigure(0, weight=1)
@@ -12192,7 +12191,7 @@ J8jogslide.config(command=J8sliderUpdate)
 J8jogslide.bind("<ButtonRelease-1>", J8sliderExecute)
 
 # J9 Frame
-J9jogFrame = Frame(extraAxesFrame, relief="raised", borderwidth=1, padding=5)
+J9jogFrame = Frame(extraAxesFrame, relief="raised", borderwidth=1, padding=2)
 J9jogFrame.grid(row=0, column=2, sticky="nsew", padx=2, pady=2)
 
 J9jogFrame.grid_columnconfigure(0, weight=1)
@@ -12263,8 +12262,8 @@ J9jogslide.config(command=J9sliderUpdate)
 J9jogslide.bind("<ButtonRelease-1>", J9sliderExecute)
 
 # Command builders (IF, SET, WAIT - reordered and aligned)
-cmdFrame = LabelFrame(rightPanel, text="Command Builders", padding=5)
-cmdFrame.grid(row=3, column=0, columnspan=2, sticky="ew", padx=5, pady=(5, 2))
+cmdFrame = LabelFrame(rightPanel, text="Command Builders", padding=2)
+cmdFrame.grid(row=3, column=0, columnspan=2, sticky="ew", padx=2, pady=(2, 2))
 
 # Configure columns for proper alignment
 cmdFrame.grid_columnconfigure(0, weight=0, minsize=45)   # Label
@@ -12360,8 +12359,8 @@ insertWaitBut = ttk.Button(cmdFrame, text="Insert WAIT CMD", command=WaitCMDInse
 insertWaitBut.grid(row=2, column=8, sticky="ew", padx=2, pady=2)
 
 # Navigation container (2x2 grid layout)
-navFrame = LabelFrame(rightPanel, text="Navigation", padding=5)
-navFrame.grid(row=4, column=0, columnspan=2, sticky="ew", padx=5, pady=(2, 5))
+navFrame = LabelFrame(rightPanel, text="Navigation", padding=2)
+navFrame.grid(row=4, column=0, columnspan=2, sticky="ew", padx=2, pady=(2, 5))
 
 # Configure 4 columns for 2x2 grid (button, entry, button, entry)
 navFrame.grid_columnconfigure(0, weight=1, minsize=100)  # Button 1
@@ -12396,8 +12395,8 @@ PlayGCEntryField = Entry(navFrame, width=8, justify="center")
 PlayGCEntryField.grid(row=1, column=3, sticky="ew", padx=2, pady=2)
 
 # Register Commands container
-regFrame = LabelFrame(rightPanel, text="Register Commands", padding=5)
-regFrame.grid(row=5, column=0, columnspan=2, sticky="ew", padx=5, pady=(2, 5))
+regFrame = LabelFrame(rightPanel, text="Register Commands", padding=2)
+regFrame.grid(row=5, column=0, columnspan=2, sticky="ew", padx=2, pady=(2, 5))
 
 # Configure columns for side-by-side layout
 regFrame.grid_columnconfigure(0, weight=1, minsize=120)  # Register button
@@ -12442,8 +12441,8 @@ posRegBut = StorPosBut
 posRegEntryField = storPosNumEntryField
 
 # Device Commands container
-devFrame = LabelFrame(rightPanel, text="Device Commands", padding=5)
-devFrame.grid(row=6, column=0, columnspan=2, sticky="ew", padx=5, pady=(2, 5))
+devFrame = LabelFrame(rightPanel, text="Device Commands", padding=2)
+devFrame.grid(row=6, column=0, columnspan=2, sticky="ew", padx=2, pady=(2, 5))
 
 # Configure columns
 devFrame.grid_columnconfigure(0, weight=1, minsize=100)  # Servo button
@@ -12513,8 +12512,8 @@ almStatusLab2.grid(row=0, column=0, columnspan=9, sticky="w", padx=25, pady=20)
 # ============================================================================
 # ROW 1, COLUMN 0: Communication Frame
 # ============================================================================
-commFrame = LabelFrame(tab2, text="Communication", padding=10)
-commFrame.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
+commFrame = LabelFrame(tab2, text="Communication", padding=5)
+commFrame.grid(row=1, column=0, sticky="nsew", padx=2, pady=2)
 
 commFrame.grid_columnconfigure(0, weight=1)
 
@@ -12541,35 +12540,35 @@ logger.debug(f"Available Comm Ports: {port_choices}")
 
 # Teensy COM Port
 ComPortLab = Label(commFrame, text="TEENSY COM PORT:")
-ComPortLab.grid(row=0, column=0, sticky="w", padx=5, pady=(5, 2))
+ComPortLab.grid(row=0, column=0, sticky="w", padx=2, pady=(2, 2))
 
 com1SelectedValue = tk.StringVar(value=default_comport1 or "None")
 com1Select = tk.OptionMenu(commFrame, com1SelectedValue, *port_choices, command=setCom)
-com1Select.grid(row=1, column=0, sticky="ew", padx=5, pady=2)
+com1Select.grid(row=1, column=0, sticky="ew", padx=2, pady=2)
 
 # 5v IO Board COM Port
 ComPortLab2 = Label(commFrame, text="5v IO BOARD COM PORT:")
-ComPortLab2.grid(row=2, column=0, sticky="w", padx=5, pady=(15, 2))
+ComPortLab2.grid(row=2, column=0, sticky="w", padx=2, pady=(15, 2))
 
 com2SelectedValue = tk.StringVar(value=default_comport2 or "None")
 com2Select = tk.OptionMenu(commFrame, com2SelectedValue, *port_choices, command=setCom2)
-com2Select.grid(row=3, column=0, sticky="ew", padx=5, pady=2)
+com2Select.grid(row=3, column=0, sticky="ew", padx=2, pady=2)
 
 # ============================================================================
 # ROW 1, COLUMN 1: Robot Calibration Frame
 # ============================================================================
-calFrame = LabelFrame(tab2, text="Robot Calibration", padding=10)
-calFrame.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
+calFrame = LabelFrame(tab2, text="Robot Calibration", padding=5)
+calFrame.grid(row=1, column=1, sticky="nsew", padx=2, pady=2)
 
 calFrame.grid_columnconfigure(0, weight=1)
 
 # Auto Calibrate button
 autoCalBut = Button(calFrame, text="  Auto Calibrate  ", command=calRobotAll)
-autoCalBut.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+autoCalBut.grid(row=0, column=0, sticky="ew", padx=2, pady=2)
 
 # First set of checkboxes (J1-J9)
 checkFrame1 = Frame(calFrame)
-checkFrame1.grid(row=1, column=0, sticky="ew", padx=5, pady=5)
+checkFrame1.grid(row=1, column=0, sticky="ew", padx=2, pady=2)
 
 checkFrame1.grid_columnconfigure(0, weight=1)
 checkFrame1.grid_columnconfigure(1, weight=1)
@@ -12604,7 +12603,7 @@ J9calCbut.grid(row=2, column=2, sticky="w", padx=2)
 
 # Second set of checkboxes (J1-J9)
 checkFrame2 = Frame(calFrame)
-checkFrame2.grid(row=2, column=0, sticky="ew", padx=5, pady=(10, 5))
+checkFrame2.grid(row=2, column=0, sticky="ew", padx=2, pady=(10, 5))
 
 checkFrame2.grid_columnconfigure(0, weight=1)
 checkFrame2.grid_columnconfigure(1, weight=1)
@@ -12639,35 +12638,35 @@ J9calCbut2.grid(row=2, column=2, sticky="w", padx=2)
 
 # Individual calibration buttons (EXACT names from original)
 CalJ1But = Button(calFrame, text="Calibrate J1 Only", command=calRobotJ1)
-CalJ1But.grid(row=3, column=0, sticky="ew", padx=5, pady=2)
+CalJ1But.grid(row=3, column=0, sticky="ew", padx=2, pady=2)
 
 CalJ2But = Button(calFrame, text="Calibrate J2 Only", command=calRobotJ2)
-CalJ2But.grid(row=4, column=0, sticky="ew", padx=5, pady=2)
+CalJ2But.grid(row=4, column=0, sticky="ew", padx=2, pady=2)
 
 CalJ3But = Button(calFrame, text="Calibrate J3 Only", command=calRobotJ3)
-CalJ3But.grid(row=5, column=0, sticky="ew", padx=5, pady=2)
+CalJ3But.grid(row=5, column=0, sticky="ew", padx=2, pady=2)
 
 CalJ4But = Button(calFrame, text="Calibrate J4 Only", command=calRobotJ4)
-CalJ4But.grid(row=6, column=0, sticky="ew", padx=5, pady=2)
+CalJ4But.grid(row=6, column=0, sticky="ew", padx=2, pady=2)
 
 CalJ5But = Button(calFrame, text="Calibrate J5 Only", command=calRobotJ5)
-CalJ5But.grid(row=7, column=0, sticky="ew", padx=5, pady=2)
+CalJ5But.grid(row=7, column=0, sticky="ew", padx=2, pady=2)
 
 CalJ6But = Button(calFrame, text="Calibrate J6 Only", command=calRobotJ6)
-CalJ6But.grid(row=8, column=0, sticky="ew", padx=5, pady=(5,20))
+CalJ6But.grid(row=8, column=0, sticky="ew", padx=2, pady=(5,20))
 
 ForceCalHomeBut = Button(calFrame, text="Force Cal Home", command=CalZeroPos)
-ForceCalHomeBut.grid(row=9, column=0, sticky="ew", padx=5, pady=2)
+ForceCalHomeBut.grid(row=9, column=0, sticky="ew", padx=2, pady=2)
 
 ForceCalHomeBut = Button(calFrame, text="Force Cal Rest", command=CalRestPos)
-ForceCalHomeBut.grid(row=10, column=0, sticky="ew", padx=5, pady=2)
+ForceCalHomeBut.grid(row=10, column=0, sticky="ew", padx=2, pady=2)
 
 
 # ============================================================================
 # ROW 1, COLUMN 2: Calibration Offsets Frame
 # ============================================================================
-calOffsetFrame = LabelFrame(tab2, text="Calibration Offsets", padding=10)
-calOffsetFrame.grid(row=1, column=2, sticky="nsew", padx=5, pady=5)
+calOffsetFrame = LabelFrame(tab2, text="Calibration Offsets", padding=5)
+calOffsetFrame.grid(row=1, column=2, sticky="nsew", padx=2, pady=2)
 
 calOffsetFrame.grid_columnconfigure(0, weight=1)
 calOffsetFrame.grid_columnconfigure(1, weight=1)
@@ -12730,34 +12729,34 @@ J9calOffEntryField.grid(row=8, column=1, sticky="w", padx=2, pady=2)
 # ============================================================================
 # ROW 1, COLUMN 3: Encoder Control Frame
 # ============================================================================
-encoderFrame = LabelFrame(tab2, text="Encoder Control", padding=10)
-encoderFrame.grid(row=1, column=3, sticky="nsew", padx=5, pady=5)
+encoderFrame = LabelFrame(tab2, text="Encoder Control", padding=5)
+encoderFrame.grid(row=1, column=3, sticky="nsew", padx=2, pady=2)
 
 encoderFrame.grid_columnconfigure(0, weight=1)
 
 # J1 Open Loop
 J1OpenLoopCbut = Checkbutton(encoderFrame, text="J1 Open Loop (disable encoder)", variable=CAL['J1OpenLoopVal'])
-J1OpenLoopCbut.grid(row=0, column=0, sticky="w", padx=5, pady=2)
+J1OpenLoopCbut.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 
 # J2 Open Loop
 J2OpenLoopCbut = Checkbutton(encoderFrame, text="J2 Open Loop (disable encoder)", variable=CAL['J2OpenLoopVal'])
-J2OpenLoopCbut.grid(row=1, column=0, sticky="w", padx=5, pady=2)
+J2OpenLoopCbut.grid(row=1, column=0, sticky="w", padx=2, pady=2)
 
 # J3 Open Loop
 J3OpenLoopCbut = Checkbutton(encoderFrame, text="J3 Open Loop (disable encoder)", variable=CAL['J3OpenLoopVal'])
-J3OpenLoopCbut.grid(row=2, column=0, sticky="w", padx=5, pady=2)
+J3OpenLoopCbut.grid(row=2, column=0, sticky="w", padx=2, pady=2)
 
 # J4 Open Loop
 J4OpenLoopCbut = Checkbutton(encoderFrame, text="J4 Open Loop (disable encoder)", variable=CAL['J4OpenLoopVal'])
-J4OpenLoopCbut.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+J4OpenLoopCbut.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 
 # J5 Open Loop
 J5OpenLoopCbut = Checkbutton(encoderFrame, text="J5 Open Loop (disable encoder)", variable=CAL['J5OpenLoopVal'])
-J5OpenLoopCbut.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+J5OpenLoopCbut.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 
 # J6 Open Loop
 J6OpenLoopCbut = Checkbutton(encoderFrame, text="J6 Open Loop (disable encoder)", variable=CAL['J6OpenLoopVal'])
-J6OpenLoopCbut.grid(row=5, column=0, sticky="w", padx=5, pady=2)
+J6OpenLoopCbut.grid(row=5, column=0, sticky="w", padx=2, pady=2)
 
 
 
@@ -12797,8 +12796,8 @@ main_color_var = tk.StringVar(value="Royal Blue")
 # ============================================================================
 # ROW 1, COLUMN 5: Theme Frame
 # ============================================================================
-themeFrame = LabelFrame(tab2, text="Theme", padding=10)
-themeFrame.grid(row=1, column=5, sticky="nsew", padx=5, pady=5)
+themeFrame = LabelFrame(tab2, text="Theme", padding=5)
+themeFrame.grid(row=1, column=5, sticky="nsew", padx=2, pady=2)
 
 themeFrame.grid_columnconfigure(0, weight=1)
 themeFrame.grid_columnconfigure(1, weight=1)
@@ -12823,175 +12822,175 @@ main_color_dropdown.grid(row=2, column=0, columnspan=2, sticky="ew", padx=2, pad
 # ============================================================================
 # ROW 1, COLUMN 4: External Axes Frame
 # ============================================================================
-externalAxesFrame = LabelFrame(tab2, text="External Axes", padding=10)
-externalAxesFrame.grid(row=1, column=4, sticky="nsew", padx=5, pady=5)
+externalAxesFrame = LabelFrame(tab2, text="External Axes", padding=5)
+externalAxesFrame.grid(row=1, column=4, sticky="nsew", padx=2, pady=2)
 
 externalAxesFrame.grid_columnconfigure(0, weight=0)  # Labels
 externalAxesFrame.grid_columnconfigure(1, weight=1)  # Entry fields
 
 # --- 7th Axis Calibration ---
 axis7Lab = Label(externalAxesFrame, font=("Arial 10 bold"), text="7th Axis Calibration")
-axis7Lab.grid(row=0, column=0, columnspan=2, sticky="w", padx=5, pady=(5, 10))
+axis7Lab.grid(row=0, column=0, columnspan=2, sticky="w", padx=2, pady=(5, 10))
 
 axis7lengthLab = Label(externalAxesFrame, text="7th Axis Length:")
-axis7lengthLab.grid(row=1, column=0, sticky="e", padx=5, pady=2)
+axis7lengthLab.grid(row=1, column=0, sticky="e", padx=2, pady=2)
 axis7lengthEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis7lengthEntryField.grid(row=1, column=1, sticky="w", padx=5, pady=2)
+axis7lengthEntryField.grid(row=1, column=1, sticky="w", padx=2, pady=2)
 
 axis7rotLab = Label(externalAxesFrame, text="MM per Rotation:")
-axis7rotLab.grid(row=2, column=0, sticky="e", padx=5, pady=2)
+axis7rotLab.grid(row=2, column=0, sticky="e", padx=2, pady=2)
 axis7rotEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis7rotEntryField.grid(row=2, column=1, sticky="w", padx=5, pady=2)
+axis7rotEntryField.grid(row=2, column=1, sticky="w", padx=2, pady=2)
 
 axis7stepsLab = Label(externalAxesFrame, text="Drive Steps:")
-axis7stepsLab.grid(row=3, column=0, sticky="e", padx=5, pady=2)
+axis7stepsLab.grid(row=3, column=0, sticky="e", padx=2, pady=2)
 axis7stepsEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis7stepsEntryField.grid(row=3, column=1, sticky="w", padx=5, pady=2)
+axis7stepsEntryField.grid(row=3, column=1, sticky="w", padx=2, pady=2)
 
 J7zerobut = Button(externalAxesFrame, text="Set Axis 7 Calibration to Zero", width=28, command=zeroAxis7)
-J7zerobut.grid(row=4, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+J7zerobut.grid(row=4, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 J7calbut = Button(externalAxesFrame, text="Autocalibrate Axis 7", width=28, command=calRobotJ7)
-J7calbut.grid(row=5, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+J7calbut.grid(row=5, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 axis7pinsetLab = Label(externalAxesFrame, font=("Arial", 8), text="StepPin = 12 / DirPin = 13 / CalPin = 36")
-axis7pinsetLab.grid(row=6, column=0, columnspan=2, sticky="w", padx=5, pady=(2, 15))
+axis7pinsetLab.grid(row=6, column=0, columnspan=2, sticky="w", padx=2, pady=(2, 15))
 
 # --- 8th Axis Calibration ---
 axis8Lab = Label(externalAxesFrame, font=("Arial 10 bold"), text="8th Axis Calibration")
-axis8Lab.grid(row=7, column=0, columnspan=2, sticky="w", padx=5, pady=(5, 10))
+axis8Lab.grid(row=7, column=0, columnspan=2, sticky="w", padx=2, pady=(5, 10))
 
 axis8lengthLab = Label(externalAxesFrame, text="8th Axis Length:")
-axis8lengthLab.grid(row=8, column=0, sticky="e", padx=5, pady=2)
+axis8lengthLab.grid(row=8, column=0, sticky="e", padx=2, pady=2)
 axis8lengthEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis8lengthEntryField.grid(row=8, column=1, sticky="w", padx=5, pady=2)
+axis8lengthEntryField.grid(row=8, column=1, sticky="w", padx=2, pady=2)
 
 axis8rotLab = Label(externalAxesFrame, text="MM per Rotation:")
-axis8rotLab.grid(row=9, column=0, sticky="e", padx=5, pady=2)
+axis8rotLab.grid(row=9, column=0, sticky="e", padx=2, pady=2)
 axis8rotEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis8rotEntryField.grid(row=9, column=1, sticky="w", padx=5, pady=2)
+axis8rotEntryField.grid(row=9, column=1, sticky="w", padx=2, pady=2)
 
 axis8stepsLab = Label(externalAxesFrame, text="Drive Steps:")
-axis8stepsLab.grid(row=10, column=0, sticky="e", padx=5, pady=2)
+axis8stepsLab.grid(row=10, column=0, sticky="e", padx=2, pady=2)
 axis8stepsEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis8stepsEntryField.grid(row=10, column=1, sticky="w", padx=5, pady=2)
+axis8stepsEntryField.grid(row=10, column=1, sticky="w", padx=2, pady=2)
 
 J8zerobut = Button(externalAxesFrame, text="Set Axis 8 Calibration to Zero", width=28, command=zeroAxis8)
-J8zerobut.grid(row=11, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+J8zerobut.grid(row=11, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 J8calbut = Button(externalAxesFrame, text="Autocalibrate Axis 8", width=28, command=calRobotJ8)
-J8calbut.grid(row=12, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+J8calbut.grid(row=12, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 axis8pinsetLab = Label(externalAxesFrame, font=("Arial", 8), text="StepPin = 32 / DirPin = 33 / CalPin = 37")
-axis8pinsetLab.grid(row=13, column=0, columnspan=2, sticky="w", padx=5, pady=(2, 15))
+axis8pinsetLab.grid(row=13, column=0, columnspan=2, sticky="w", padx=2, pady=(2, 15))
 
 # --- 9th Axis Calibration ---
 axis9Lab = Label(externalAxesFrame, font=("Arial 10 bold"), text="9th Axis Calibration")
-axis9Lab.grid(row=14, column=0, columnspan=2, sticky="w", padx=5, pady=(5, 10))
+axis9Lab.grid(row=14, column=0, columnspan=2, sticky="w", padx=2, pady=(5, 10))
 
 axis9lengthLab = Label(externalAxesFrame, text="9th Axis Length:")
-axis9lengthLab.grid(row=15, column=0, sticky="e", padx=5, pady=2)
+axis9lengthLab.grid(row=15, column=0, sticky="e", padx=2, pady=2)
 axis9lengthEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis9lengthEntryField.grid(row=15, column=1, sticky="w", padx=5, pady=2)
+axis9lengthEntryField.grid(row=15, column=1, sticky="w", padx=2, pady=2)
 
 axis9rotLab = Label(externalAxesFrame, text="MM per Rotation:")
-axis9rotLab.grid(row=16, column=0, sticky="e", padx=5, pady=2)
+axis9rotLab.grid(row=16, column=0, sticky="e", padx=2, pady=2)
 axis9rotEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis9rotEntryField.grid(row=16, column=1, sticky="w", padx=5, pady=2)
+axis9rotEntryField.grid(row=16, column=1, sticky="w", padx=2, pady=2)
 
 axis9stepsLab = Label(externalAxesFrame, text="Drive Steps:")
-axis9stepsLab.grid(row=17, column=0, sticky="e", padx=5, pady=2)
+axis9stepsLab.grid(row=17, column=0, sticky="e", padx=2, pady=2)
 axis9stepsEntryField = Entry(externalAxesFrame, width=5, justify="center")
-axis9stepsEntryField.grid(row=17, column=1, sticky="w", padx=5, pady=2)
+axis9stepsEntryField.grid(row=17, column=1, sticky="w", padx=2, pady=2)
 
 J9zerobut = Button(externalAxesFrame, text="Set Axis 9 Calibration to Zero", width=28, command=zeroAxis9)
-J9zerobut.grid(row=18, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+J9zerobut.grid(row=18, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 J9calbut = Button(externalAxesFrame, text="Autocalibrate Axis 9", width=28, command=calRobotJ9)
-J9calbut.grid(row=19, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+J9calbut.grid(row=19, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 axis9pinsetLab = Label(externalAxesFrame, font=("Arial", 8), text="StepPin = 34 / DirPin = 35 / CalPin = 38")
-axis9pinsetLab.grid(row=20, column=0, columnspan=2, sticky="w", padx=5, pady=(2, 5))
+axis9pinsetLab.grid(row=20, column=0, columnspan=2, sticky="w", padx=2, pady=(2, 5))
 
 
 # ============================================================================
 # ROW 1, COLUMN 6: Virtual Import Frame
 # ============================================================================
-virtualImportFrame = LabelFrame(tab2, text="Virtual Import", padding=10)
-virtualImportFrame.grid(row=1, column=6, sticky="nsew", padx=5, pady=5)
+virtualImportFrame = LabelFrame(tab2, text="Virtual Import", padding=5)
+virtualImportFrame.grid(row=1, column=6, sticky="nsew", padx=2, pady=2)
 
 virtualImportFrame.grid_columnconfigure(0, weight=1)
 
 # Import STL button
 importSTLBut = ttk.Button(virtualImportFrame, text="Import STL", command=import_stl_file)
-importSTLBut.grid(row=0, column=0, sticky="ew", padx=5, pady=5)
+importSTLBut.grid(row=0, column=0, sticky="ew", padx=2, pady=2)
 
 # File Name
 fileNameLab = Label(virtualImportFrame, text="File Name")
-fileNameLab.grid(row=1, column=0, sticky="w", padx=5, pady=(10, 2))
+fileNameLab.grid(row=1, column=0, sticky="w", padx=2, pady=(10, 2))
 stl_name_entry = Entry(virtualImportFrame, textvariable=stl_name_var, width=20)
-stl_name_entry.grid(row=2, column=0, sticky="ew", padx=5, pady=2)
+stl_name_entry.grid(row=2, column=0, sticky="ew", padx=2, pady=2)
 
 # X Position
 xPosLab = Label(virtualImportFrame, text="X Position")
-xPosLab.grid(row=3, column=0, sticky="w", padx=5, pady=(10, 2))
+xPosLab.grid(row=3, column=0, sticky="w", padx=2, pady=(10, 2))
 x_entry = Entry(virtualImportFrame, textvariable=x_var, width=10)
-x_entry.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+x_entry.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 
 # Y Position
 yPosLab = Label(virtualImportFrame, text="Y Position")
-yPosLab.grid(row=5, column=0, sticky="w", padx=5, pady=(10, 2))
+yPosLab.grid(row=5, column=0, sticky="w", padx=2, pady=(10, 2))
 y_entry = Entry(virtualImportFrame, textvariable=y_var, width=10)
-y_entry.grid(row=6, column=0, sticky="w", padx=5, pady=2)
+y_entry.grid(row=6, column=0, sticky="w", padx=2, pady=2)
 
 # Z Position
 zPosLab = Label(virtualImportFrame, text="Z Position")
-zPosLab.grid(row=7, column=0, sticky="w", padx=5, pady=(10, 2))
+zPosLab.grid(row=7, column=0, sticky="w", padx=2, pady=(10, 2))
 z_entry = Entry(virtualImportFrame, textvariable=z_var, width=10)
-z_entry.grid(row=8, column=0, sticky="w", padx=5, pady=2)
+z_entry.grid(row=8, column=0, sticky="w", padx=2, pady=2)
 
 # Z Rotation
 zRotLab = Label(virtualImportFrame, text="Z Rotation")
-zRotLab.grid(row=9, column=0, sticky="w", padx=5, pady=(10, 2))
+zRotLab.grid(row=9, column=0, sticky="w", padx=2, pady=(10, 2))
 rot_entry = Entry(virtualImportFrame, textvariable=rot_var, width=10)
-rot_entry.grid(row=10, column=0, sticky="w", padx=5, pady=2)
+rot_entry.grid(row=10, column=0, sticky="w", padx=2, pady=2)
 
 # Update Position button
 updatePosBut = ttk.Button(virtualImportFrame, text="Update Position", command=update_stl_transform)
-updatePosBut.grid(row=11, column=0, sticky="ew", padx=5, pady=(10, 5))
+updatePosBut.grid(row=11, column=0, sticky="ew", padx=2, pady=(10, 5))
 
 # ============================================================================
 # ROW 2, COLUMN 5: Save Frame (below and right of Commands)
 # ============================================================================
-saveFrame = LabelFrame(tab2, text="Save", padding=10)
-saveFrame.grid(row=2, column=5, columnspan=2, sticky="ew", padx=5, pady=5)
+saveFrame = LabelFrame(tab2, text="Save", padding=5)
+saveFrame.grid(row=2, column=5, columnspan=2, sticky="ew", padx=2, pady=2)
 
 saveFrame.grid_columnconfigure(0, weight=1)
 saveFrame.grid_rowconfigure(0, weight=1)  # Center vertically
 
 # Save All button
 saveCalBut = Button(saveFrame, text="SAVE ALL", width=15, command=SaveAndApplyCalibration)
-saveCalBut.grid(row=0, column=0, sticky="", padx=5, pady=5)
+saveCalBut.grid(row=0, column=0, sticky="", padx=2, pady=2)
 
 # ============================================================================
 # ROW 2: Commands Frame (spans all columns)
 # ============================================================================
-cmdFrame = LabelFrame(tab2, text="Commands", padding=10)
-cmdFrame.grid(row=2, column=0, columnspan=5, sticky="ew", padx=5, pady=5)
+cmdFrame = LabelFrame(tab2, text="Commands", padding=5)
+cmdFrame.grid(row=2, column=0, columnspan=5, sticky="ew", padx=2, pady=2)
 
 cmdFrame.grid_columnconfigure(0, weight=1)
 
 cmdSentLab = Label(cmdFrame, text="Last Command Sent to Controller")
-cmdSentLab.grid(row=0, column=0, sticky="w", padx=5, pady=(0, 2))
+cmdSentLab.grid(row=0, column=0, sticky="w", padx=2, pady=(0, 2))
 
 cmdSentEntryField = Entry(cmdFrame, width=120, justify="center")
-cmdSentEntryField.grid(row=1, column=0, sticky="ew", padx=5, pady=2)
+cmdSentEntryField.grid(row=1, column=0, sticky="ew", padx=2, pady=2)
 
 cmdRecLab = Label(cmdFrame, text="Last Response From Controller")
-cmdRecLab.grid(row=2, column=0, sticky="w", padx=5, pady=(10, 2))
+cmdRecLab.grid(row=2, column=0, sticky="w", padx=2, pady=(10, 2))
 
 cmdRecEntryField = Entry(cmdFrame, width=120, justify="center")
-cmdRecEntryField.grid(row=3, column=0, sticky="ew", padx=5, pady=2)
+cmdRecEntryField.grid(row=3, column=0, sticky="ew", padx=2, pady=2)
 
 ####TAB 3
 
@@ -13010,296 +13009,296 @@ tab3.grid_columnconfigure(5, weight=1)  # Remaining .place() widgets
 # ============================================================================
 # Motor Direction Frame (Row 0, Column 0)
 # ============================================================================
-motorDirFrame = LabelFrame(tab3, text="Motor Direction", padding=10)
-motorDirFrame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+motorDirFrame = LabelFrame(tab3, text="Motor Direction", padding=5)
+motorDirFrame.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
 motorDirFrame.grid_columnconfigure(0, weight=0)
 motorDirFrame.grid_columnconfigure(1, weight=1)
 
 J1MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J1 Motor Direction")
-J1MotDirLab_grid.grid(row=0, column=0, sticky="w", padx=5, pady=2)
+J1MotDirLab_grid.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 J1MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J1MotDirEntryField.grid(row=0, column=1, sticky="w", padx=5, pady=2)
+J1MotDirEntryField.grid(row=0, column=1, sticky="w", padx=2, pady=2)
 
 J2MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J2 Motor Direction")
-J2MotDirLab_grid.grid(row=1, column=0, sticky="w", padx=5, pady=2)
+J2MotDirLab_grid.grid(row=1, column=0, sticky="w", padx=2, pady=2)
 J2MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J2MotDirEntryField.grid(row=1, column=1, sticky="w", padx=5, pady=2)
+J2MotDirEntryField.grid(row=1, column=1, sticky="w", padx=2, pady=2)
 
 J3MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J3 Motor Direction")
-J3MotDirLab_grid.grid(row=2, column=0, sticky="w", padx=5, pady=2)
+J3MotDirLab_grid.grid(row=2, column=0, sticky="w", padx=2, pady=2)
 J3MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J3MotDirEntryField.grid(row=2, column=1, sticky="w", padx=5, pady=2)
+J3MotDirEntryField.grid(row=2, column=1, sticky="w", padx=2, pady=2)
 
 J4MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J4 Motor Direction")
-J4MotDirLab_grid.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+J4MotDirLab_grid.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 J4MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J4MotDirEntryField.grid(row=3, column=1, sticky="w", padx=5, pady=2)
+J4MotDirEntryField.grid(row=3, column=1, sticky="w", padx=2, pady=2)
 
 J5MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J5 Motor Direction")
-J5MotDirLab_grid.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+J5MotDirLab_grid.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 J5MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J5MotDirEntryField.grid(row=4, column=1, sticky="w", padx=5, pady=2)
+J5MotDirEntryField.grid(row=4, column=1, sticky="w", padx=2, pady=2)
 
 J6MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J6 Motor Direction")
-J6MotDirLab_grid.grid(row=5, column=0, sticky="w", padx=5, pady=2)
+J6MotDirLab_grid.grid(row=5, column=0, sticky="w", padx=2, pady=2)
 J6MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J6MotDirEntryField.grid(row=5, column=1, sticky="w", padx=5, pady=2)
+J6MotDirEntryField.grid(row=5, column=1, sticky="w", padx=2, pady=2)
 
 J7MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J7 Motor Direction")
-J7MotDirLab_grid.grid(row=6, column=0, sticky="w", padx=5, pady=2)
+J7MotDirLab_grid.grid(row=6, column=0, sticky="w", padx=2, pady=2)
 J7MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J7MotDirEntryField.grid(row=6, column=1, sticky="w", padx=5, pady=2)
+J7MotDirEntryField.grid(row=6, column=1, sticky="w", padx=2, pady=2)
 
 J8MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J8 Motor Direction")
-J8MotDirLab_grid.grid(row=7, column=0, sticky="w", padx=5, pady=2)
+J8MotDirLab_grid.grid(row=7, column=0, sticky="w", padx=2, pady=2)
 J8MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J8MotDirEntryField.grid(row=7, column=1, sticky="w", padx=5, pady=2)
+J8MotDirEntryField.grid(row=7, column=1, sticky="w", padx=2, pady=2)
 
 J9MotDirLab_grid = Label(motorDirFrame, font=("Arial", 8), text="J9 Motor Direction")
-J9MotDirLab_grid.grid(row=8, column=0, sticky="w", padx=5, pady=2)
+J9MotDirLab_grid.grid(row=8, column=0, sticky="w", padx=2, pady=2)
 J9MotDirEntryField = Entry(motorDirFrame, width=5, justify="center")
-J9MotDirEntryField.grid(row=8, column=1, sticky="w", padx=5, pady=2)
+J9MotDirEntryField.grid(row=8, column=1, sticky="w", padx=2, pady=2)
 
 # ============================================================================
 # Calibration Direction Frame (Row 1, Column 0)
 # ============================================================================
-calDirFrame = LabelFrame(tab3, text="Calibration Direction", padding=10)
-calDirFrame.grid(row=1, column=0, sticky="nsew", padx=5, pady=5)
+calDirFrame = LabelFrame(tab3, text="Calibration Direction", padding=5)
+calDirFrame.grid(row=1, column=0, sticky="nsew", padx=2, pady=2)
 calDirFrame.grid_columnconfigure(0, weight=0)
 calDirFrame.grid_columnconfigure(1, weight=1)
 
 J1CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J1 Calibration Dir.")
-J1CalDirLab_grid.grid(row=0, column=0, sticky="w", padx=5, pady=2)
+J1CalDirLab_grid.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 J1CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J1CalDirEntryField.grid(row=0, column=1, sticky="w", padx=5, pady=2)
+J1CalDirEntryField.grid(row=0, column=1, sticky="w", padx=2, pady=2)
 
 J2CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J2 Calibration Dir.")
-J2CalDirLab_grid.grid(row=1, column=0, sticky="w", padx=5, pady=2)
+J2CalDirLab_grid.grid(row=1, column=0, sticky="w", padx=2, pady=2)
 J2CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J2CalDirEntryField.grid(row=1, column=1, sticky="w", padx=5, pady=2)
+J2CalDirEntryField.grid(row=1, column=1, sticky="w", padx=2, pady=2)
 
 J3CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J3 Calibration Dir.")
-J3CalDirLab_grid.grid(row=2, column=0, sticky="w", padx=5, pady=2)
+J3CalDirLab_grid.grid(row=2, column=0, sticky="w", padx=2, pady=2)
 J3CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J3CalDirEntryField.grid(row=2, column=1, sticky="w", padx=5, pady=2)
+J3CalDirEntryField.grid(row=2, column=1, sticky="w", padx=2, pady=2)
 
 J4CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J4 Calibration Dir.")
-J4CalDirLab_grid.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+J4CalDirLab_grid.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 J4CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J4CalDirEntryField.grid(row=3, column=1, sticky="w", padx=5, pady=2)
+J4CalDirEntryField.grid(row=3, column=1, sticky="w", padx=2, pady=2)
 
 J5CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J5 Calibration Dir.")
-J5CalDirLab_grid.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+J5CalDirLab_grid.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 J5CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J5CalDirEntryField.grid(row=4, column=1, sticky="w", padx=5, pady=2)
+J5CalDirEntryField.grid(row=4, column=1, sticky="w", padx=2, pady=2)
 
 J6CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J6 Calibration Dir.")
-J6CalDirLab_grid.grid(row=5, column=0, sticky="w", padx=5, pady=2)
+J6CalDirLab_grid.grid(row=5, column=0, sticky="w", padx=2, pady=2)
 J6CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J6CalDirEntryField.grid(row=5, column=1, sticky="w", padx=5, pady=2)
+J6CalDirEntryField.grid(row=5, column=1, sticky="w", padx=2, pady=2)
 
 J7CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J7 Calibration Dir.")
-J7CalDirLab_grid.grid(row=6, column=0, sticky="w", padx=5, pady=2)
+J7CalDirLab_grid.grid(row=6, column=0, sticky="w", padx=2, pady=2)
 J7CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J7CalDirEntryField.grid(row=6, column=1, sticky="w", padx=5, pady=2)
+J7CalDirEntryField.grid(row=6, column=1, sticky="w", padx=2, pady=2)
 
 J8CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J8 Calibration Dir.")
-J8CalDirLab_grid.grid(row=7, column=0, sticky="w", padx=5, pady=2)
+J8CalDirLab_grid.grid(row=7, column=0, sticky="w", padx=2, pady=2)
 J8CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J8CalDirEntryField.grid(row=7, column=1, sticky="w", padx=5, pady=2)
+J8CalDirEntryField.grid(row=7, column=1, sticky="w", padx=2, pady=2)
 
 J9CalDirLab_grid = Label(calDirFrame, font=("Arial", 8), text="J9 Calibration Dir.")
-J9CalDirLab_grid.grid(row=8, column=0, sticky="w", padx=5, pady=2)
+J9CalDirLab_grid.grid(row=8, column=0, sticky="w", padx=2, pady=2)
 J9CalDirEntryField = Entry(calDirFrame, width=5, justify="center")
-J9CalDirEntryField.grid(row=8, column=1, sticky="w", padx=5, pady=2)
+J9CalDirEntryField.grid(row=8, column=1, sticky="w", padx=2, pady=2)
 
 # ============================================================================
 # Position Limits Frame (Row 0, Column 1)
 # ============================================================================
-posLimFrame = LabelFrame(tab3, text="Position Limits", padding=10)
-posLimFrame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+posLimFrame = LabelFrame(tab3, text="Position Limits", padding=5)
+posLimFrame.grid(row=0, column=1, sticky="nsew", padx=2, pady=2)
 posLimFrame.grid_columnconfigure(0, weight=0)
 posLimFrame.grid_columnconfigure(1, weight=1)
 
 J1PosLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J1 Pos Limit")
-J1PosLimLab_grid.grid(row=0, column=0, sticky="w", padx=5, pady=2)
+J1PosLimLab_grid.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 J1PosLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J1PosLimEntryField.grid(row=0, column=1, sticky="w", padx=5, pady=2)
+J1PosLimEntryField.grid(row=0, column=1, sticky="w", padx=2, pady=2)
 
 J1NegLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J1 Neg Limit")
-J1NegLimLab_grid.grid(row=1, column=0, sticky="w", padx=5, pady=2)
+J1NegLimLab_grid.grid(row=1, column=0, sticky="w", padx=2, pady=2)
 J1NegLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J1NegLimEntryField.grid(row=1, column=1, sticky="w", padx=5, pady=2)
+J1NegLimEntryField.grid(row=1, column=1, sticky="w", padx=2, pady=2)
 
 J2PosLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J2 Pos Limit")
-J2PosLimLab_grid.grid(row=2, column=0, sticky="w", padx=5, pady=2)
+J2PosLimLab_grid.grid(row=2, column=0, sticky="w", padx=2, pady=2)
 J2PosLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J2PosLimEntryField.grid(row=2, column=1, sticky="w", padx=5, pady=2)
+J2PosLimEntryField.grid(row=2, column=1, sticky="w", padx=2, pady=2)
 
 J2NegLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J2 Neg Limit")
-J2NegLimLab_grid.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+J2NegLimLab_grid.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 J2NegLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J2NegLimEntryField.grid(row=3, column=1, sticky="w", padx=5, pady=2)
+J2NegLimEntryField.grid(row=3, column=1, sticky="w", padx=2, pady=2)
 
 J3PosLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J3 Pos Limit")
-J3PosLimLab_grid.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+J3PosLimLab_grid.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 J3PosLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J3PosLimEntryField.grid(row=4, column=1, sticky="w", padx=5, pady=2)
+J3PosLimEntryField.grid(row=4, column=1, sticky="w", padx=2, pady=2)
 
 J3NegLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J3 Neg Limit")
-J3NegLimLab_grid.grid(row=5, column=0, sticky="w", padx=5, pady=2)
+J3NegLimLab_grid.grid(row=5, column=0, sticky="w", padx=2, pady=2)
 J3NegLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J3NegLimEntryField.grid(row=5, column=1, sticky="w", padx=5, pady=2)
+J3NegLimEntryField.grid(row=5, column=1, sticky="w", padx=2, pady=2)
 
 J4PosLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J4 Pos Limit")
-J4PosLimLab_grid.grid(row=6, column=0, sticky="w", padx=5, pady=2)
+J4PosLimLab_grid.grid(row=6, column=0, sticky="w", padx=2, pady=2)
 J4PosLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J4PosLimEntryField.grid(row=6, column=1, sticky="w", padx=5, pady=2)
+J4PosLimEntryField.grid(row=6, column=1, sticky="w", padx=2, pady=2)
 
 J4NegLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J4 Neg Limit")
-J4NegLimLab_grid.grid(row=7, column=0, sticky="w", padx=5, pady=2)
+J4NegLimLab_grid.grid(row=7, column=0, sticky="w", padx=2, pady=2)
 J4NegLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J4NegLimEntryField.grid(row=7, column=1, sticky="w", padx=5, pady=2)
+J4NegLimEntryField.grid(row=7, column=1, sticky="w", padx=2, pady=2)
 
 J5PosLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J5 Pos Limit")
-J5PosLimLab_grid.grid(row=8, column=0, sticky="w", padx=5, pady=2)
+J5PosLimLab_grid.grid(row=8, column=0, sticky="w", padx=2, pady=2)
 J5PosLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J5PosLimEntryField.grid(row=8, column=1, sticky="w", padx=5, pady=2)
+J5PosLimEntryField.grid(row=8, column=1, sticky="w", padx=2, pady=2)
 
 J5NegLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J5 Neg Limit")
-J5NegLimLab_grid.grid(row=9, column=0, sticky="w", padx=5, pady=2)
+J5NegLimLab_grid.grid(row=9, column=0, sticky="w", padx=2, pady=2)
 J5NegLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J5NegLimEntryField.grid(row=9, column=1, sticky="w", padx=5, pady=2)
+J5NegLimEntryField.grid(row=9, column=1, sticky="w", padx=2, pady=2)
 
 J6PosLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J6 Pos Limit")
-J6PosLimLab_grid.grid(row=10, column=0, sticky="w", padx=5, pady=2)
+J6PosLimLab_grid.grid(row=10, column=0, sticky="w", padx=2, pady=2)
 J6PosLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J6PosLimEntryField.grid(row=10, column=1, sticky="w", padx=5, pady=2)
+J6PosLimEntryField.grid(row=10, column=1, sticky="w", padx=2, pady=2)
 
 J6NegLimLab_grid = Label(posLimFrame, font=("Arial", 8), text="J6 Neg Limit")
-J6NegLimLab_grid.grid(row=11, column=0, sticky="w", padx=5, pady=2)
+J6NegLimLab_grid.grid(row=11, column=0, sticky="w", padx=2, pady=2)
 J6NegLimEntryField = Entry(posLimFrame, width=5, justify="center")
-J6NegLimEntryField.grid(row=11, column=1, sticky="w", padx=5, pady=2)
+J6NegLimEntryField.grid(row=11, column=1, sticky="w", padx=2, pady=2)
 
 # ============================================================================
 # Steps per Degree Frame (Row 1, Column 1)
 # ============================================================================
-stepDegFrame = LabelFrame(tab3, text="Steps per Degree", padding=10)
-stepDegFrame.grid(row=1, column=1, sticky="nsew", padx=5, pady=5)
+stepDegFrame = LabelFrame(tab3, text="Steps per Degree", padding=5)
+stepDegFrame.grid(row=1, column=1, sticky="nsew", padx=2, pady=2)
 stepDegFrame.grid_columnconfigure(0, weight=0)
 stepDegFrame.grid_columnconfigure(1, weight=1)
 
 J1StepDegLab_grid = Label(stepDegFrame, font=("Arial", 8), text="J1 Step/Deg")
-J1StepDegLab_grid.grid(row=0, column=0, sticky="w", padx=5, pady=2)
+J1StepDegLab_grid.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 J1StepDegEntryField = Entry(stepDegFrame, width=5, justify="center")
-J1StepDegEntryField.grid(row=0, column=1, sticky="w", padx=5, pady=2)
+J1StepDegEntryField.grid(row=0, column=1, sticky="w", padx=2, pady=2)
 
 J2StepDegLab_grid = Label(stepDegFrame, font=("Arial", 8), text="J2 Step/Deg")
-J2StepDegLab_grid.grid(row=1, column=0, sticky="w", padx=5, pady=2)
+J2StepDegLab_grid.grid(row=1, column=0, sticky="w", padx=2, pady=2)
 J2StepDegEntryField = Entry(stepDegFrame, width=5, justify="center")
-J2StepDegEntryField.grid(row=1, column=1, sticky="w", padx=5, pady=2)
+J2StepDegEntryField.grid(row=1, column=1, sticky="w", padx=2, pady=2)
 
 J3StepDegLab_grid = Label(stepDegFrame, font=("Arial", 8), text="J3 Step/Deg")
-J3StepDegLab_grid.grid(row=2, column=0, sticky="w", padx=5, pady=2)
+J3StepDegLab_grid.grid(row=2, column=0, sticky="w", padx=2, pady=2)
 J3StepDegEntryField = Entry(stepDegFrame, width=5, justify="center")
-J3StepDegEntryField.grid(row=2, column=1, sticky="w", padx=5, pady=2)
+J3StepDegEntryField.grid(row=2, column=1, sticky="w", padx=2, pady=2)
 
 J4StepDegLab_grid = Label(stepDegFrame, font=("Arial", 8), text="J4 Step/Deg")
-J4StepDegLab_grid.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+J4StepDegLab_grid.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 J4StepDegEntryField = Entry(stepDegFrame, width=5, justify="center")
-J4StepDegEntryField.grid(row=3, column=1, sticky="w", padx=5, pady=2)
+J4StepDegEntryField.grid(row=3, column=1, sticky="w", padx=2, pady=2)
 
 J5StepDegLab_grid = Label(stepDegFrame, font=("Arial", 8), text="J5 Step/Deg")
-J5StepDegLab_grid.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+J5StepDegLab_grid.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 J5StepDegEntryField = Entry(stepDegFrame, width=5, justify="center")
-J5StepDegEntryField.grid(row=4, column=1, sticky="w", padx=5, pady=2)
+J5StepDegEntryField.grid(row=4, column=1, sticky="w", padx=2, pady=2)
 
 J6StepDegLab_grid = Label(stepDegFrame, font=("Arial", 8), text="J6 Step/Deg")
-J6StepDegLab_grid.grid(row=5, column=0, sticky="w", padx=5, pady=2)
+J6StepDegLab_grid.grid(row=5, column=0, sticky="w", padx=2, pady=2)
 J6StepDegEntryField = Entry(stepDegFrame, width=5, justify="center")
-J6StepDegEntryField.grid(row=5, column=1, sticky="w", padx=5, pady=2)
+J6StepDegEntryField.grid(row=5, column=1, sticky="w", padx=2, pady=2)
 
 # ============================================================================
 # Drive Microsteps Frame (Row 0, Column 2)
 # ============================================================================
-driveMSFrame = LabelFrame(tab3, text="Drive Microsteps", padding=10)
-driveMSFrame.grid(row=0, column=2, sticky="nsew", padx=5, pady=5)
+driveMSFrame = LabelFrame(tab3, text="Drive Microsteps", padding=5)
+driveMSFrame.grid(row=0, column=2, sticky="nsew", padx=2, pady=2)
 driveMSFrame.grid_columnconfigure(0, weight=0)
 driveMSFrame.grid_columnconfigure(1, weight=1)
 
 J1DriveMSLab_grid = Label(driveMSFrame, font=("Arial", 8), text="J1 Drive Microstep")
-J1DriveMSLab_grid.grid(row=0, column=0, sticky="w", padx=5, pady=2)
+J1DriveMSLab_grid.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 J1DriveMSEntryField = Entry(driveMSFrame, width=5, justify="center")
-J1DriveMSEntryField.grid(row=0, column=1, sticky="w", padx=5, pady=2)
+J1DriveMSEntryField.grid(row=0, column=1, sticky="w", padx=2, pady=2)
 
 J2DriveMSLab_grid = Label(driveMSFrame, font=("Arial", 8), text="J2 Drive Microstep")
-J2DriveMSLab_grid.grid(row=1, column=0, sticky="w", padx=5, pady=2)
+J2DriveMSLab_grid.grid(row=1, column=0, sticky="w", padx=2, pady=2)
 J2DriveMSEntryField = Entry(driveMSFrame, width=5, justify="center")
-J2DriveMSEntryField.grid(row=1, column=1, sticky="w", padx=5, pady=2)
+J2DriveMSEntryField.grid(row=1, column=1, sticky="w", padx=2, pady=2)
 
 J3DriveMSLab_grid = Label(driveMSFrame, font=("Arial", 8), text="J3 Drive Microstep")
-J3DriveMSLab_grid.grid(row=2, column=0, sticky="w", padx=5, pady=2)
+J3DriveMSLab_grid.grid(row=2, column=0, sticky="w", padx=2, pady=2)
 J3DriveMSEntryField = Entry(driveMSFrame, width=5, justify="center")
-J3DriveMSEntryField.grid(row=2, column=1, sticky="w", padx=5, pady=2)
+J3DriveMSEntryField.grid(row=2, column=1, sticky="w", padx=2, pady=2)
 
 J4DriveMSLab_grid = Label(driveMSFrame, font=("Arial", 8), text="J4 Drive Microstep")
-J4DriveMSLab_grid.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+J4DriveMSLab_grid.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 J4DriveMSEntryField = Entry(driveMSFrame, width=5, justify="center")
-J4DriveMSEntryField.grid(row=3, column=1, sticky="w", padx=5, pady=2)
+J4DriveMSEntryField.grid(row=3, column=1, sticky="w", padx=2, pady=2)
 
 J5DriveMSLab_grid = Label(driveMSFrame, font=("Arial", 8), text="J5 Drive Microstep")
-J5DriveMSLab_grid.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+J5DriveMSLab_grid.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 J5DriveMSEntryField = Entry(driveMSFrame, width=5, justify="center")
-J5DriveMSEntryField.grid(row=4, column=1, sticky="w", padx=5, pady=2)
+J5DriveMSEntryField.grid(row=4, column=1, sticky="w", padx=2, pady=2)
 
 J6DriveMSLab_grid = Label(driveMSFrame, font=("Arial", 8), text="J6 Drive Microstep")
-J6DriveMSLab_grid.grid(row=5, column=0, sticky="w", padx=5, pady=2)
+J6DriveMSLab_grid.grid(row=5, column=0, sticky="w", padx=2, pady=2)
 J6DriveMSEntryField = Entry(driveMSFrame, width=5, justify="center")
-J6DriveMSEntryField.grid(row=5, column=1, sticky="w", padx=5, pady=2)
+J6DriveMSEntryField.grid(row=5, column=1, sticky="w", padx=2, pady=2)
 
 # ============================================================================
 # Encoder CPR Frame (Row 1, Column 2)
 # ============================================================================
-encCPRFrame = LabelFrame(tab3, text="Encoder CPR", padding=10)
-encCPRFrame.grid(row=1, column=2, sticky="nsew", padx=5, pady=5)
+encCPRFrame = LabelFrame(tab3, text="Encoder CPR", padding=5)
+encCPRFrame.grid(row=1, column=2, sticky="nsew", padx=2, pady=2)
 encCPRFrame.grid_columnconfigure(0, weight=0)
 encCPRFrame.grid_columnconfigure(1, weight=1)
 
 J1EncCPRLab_grid = Label(encCPRFrame, font=("Arial", 8), text="J1 Encoder CPR")
-J1EncCPRLab_grid.grid(row=0, column=0, sticky="w", padx=5, pady=2)
+J1EncCPRLab_grid.grid(row=0, column=0, sticky="w", padx=2, pady=2)
 J1EncCPREntryField = Entry(encCPRFrame, width=5, justify="center")
-J1EncCPREntryField.grid(row=0, column=1, sticky="w", padx=5, pady=2)
+J1EncCPREntryField.grid(row=0, column=1, sticky="w", padx=2, pady=2)
 
 J2EncCPRLab_grid = Label(encCPRFrame, font=("Arial", 8), text="J2 Encoder CPR")
-J2EncCPRLab_grid.grid(row=1, column=0, sticky="w", padx=5, pady=2)
+J2EncCPRLab_grid.grid(row=1, column=0, sticky="w", padx=2, pady=2)
 J2EncCPREntryField = Entry(encCPRFrame, width=5, justify="center")
-J2EncCPREntryField.grid(row=1, column=1, sticky="w", padx=5, pady=2)
+J2EncCPREntryField.grid(row=1, column=1, sticky="w", padx=2, pady=2)
 
 J3EncCPRLab_grid = Label(encCPRFrame, font=("Arial", 8), text="J3 Encoder CPR")
-J3EncCPRLab_grid.grid(row=2, column=0, sticky="w", padx=5, pady=2)
+J3EncCPRLab_grid.grid(row=2, column=0, sticky="w", padx=2, pady=2)
 J3EncCPREntryField = Entry(encCPRFrame, width=5, justify="center")
-J3EncCPREntryField.grid(row=2, column=1, sticky="w", padx=5, pady=2)
+J3EncCPREntryField.grid(row=2, column=1, sticky="w", padx=2, pady=2)
 
 J4EncCPRLab_grid = Label(encCPRFrame, font=("Arial", 8), text="J4 Encoder CPR")
-J4EncCPRLab_grid.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+J4EncCPRLab_grid.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 J4EncCPREntryField = Entry(encCPRFrame, width=5, justify="center")
-J4EncCPREntryField.grid(row=3, column=1, sticky="w", padx=5, pady=2)
+J4EncCPREntryField.grid(row=3, column=1, sticky="w", padx=2, pady=2)
 
 J5EncCPRLab_grid = Label(encCPRFrame, font=("Arial", 8), text="J5 Encoder CPR")
-J5EncCPRLab_grid.grid(row=4, column=0, sticky="w", padx=5, pady=2)
+J5EncCPRLab_grid.grid(row=4, column=0, sticky="w", padx=2, pady=2)
 J5EncCPREntryField = Entry(encCPRFrame, width=5, justify="center")
-J5EncCPREntryField.grid(row=4, column=1, sticky="w", padx=5, pady=2)
+J5EncCPREntryField.grid(row=4, column=1, sticky="w", padx=2, pady=2)
 
 J6EncCPRLab_grid = Label(encCPRFrame, font=("Arial", 8), text="J6 Encoder CPR")
-J6EncCPRLab_grid.grid(row=5, column=0, sticky="w", padx=5, pady=2)
+J6EncCPRLab_grid.grid(row=5, column=0, sticky="w", padx=2, pady=2)
 J6EncCPREntryField = Entry(encCPRFrame, width=5, justify="center")
-J6EncCPREntryField.grid(row=5, column=1, sticky="w", padx=5, pady=2)
+J6EncCPREntryField.grid(row=5, column=1, sticky="w", padx=2, pady=2)
 
 # ============================================================================
 # DH Parameters Frame (Row 0, Column 3)
 # ============================================================================
-dhParamsFrame = LabelFrame(tab3, text="DH Parameters", padding=10)
-dhParamsFrame.grid(row=0, column=3, sticky="nsew", padx=5, pady=5)
+dhParamsFrame = LabelFrame(tab3, text="DH Parameters", padding=5)
+dhParamsFrame.grid(row=0, column=3, sticky="nsew", padx=2, pady=2)
 
 # Column headers
 dhParamsFrame.grid_columnconfigure(0, weight=0, minsize=30)   # J1-J6 labels
@@ -13316,7 +13315,7 @@ Label(dhParamsFrame, font=("Arial", 8), text="DH-d").grid(row=0, column=3)
 Label(dhParamsFrame, font=("Arial", 8), text="DH-a").grid(row=0, column=4)
 
 # J1 row
-Label(dhParamsFrame, font=("Arial", 8), text="J1").grid(row=1, column=0, sticky="w", padx=5, pady=2)
+Label(dhParamsFrame, font=("Arial", 8), text="J1").grid(row=1, column=0, sticky="w", padx=2, pady=2)
 J1ΘEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J1ΘEntryField.grid(row=1, column=1, padx=2, pady=2)
 J1αEntryField = Entry(dhParamsFrame, width=5, justify="center")
@@ -13327,7 +13326,7 @@ J1aEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J1aEntryField.grid(row=1, column=4, padx=2, pady=2)
 
 # J2 row
-Label(dhParamsFrame, font=("Arial", 8), text="J2").grid(row=2, column=0, sticky="w", padx=5, pady=2)
+Label(dhParamsFrame, font=("Arial", 8), text="J2").grid(row=2, column=0, sticky="w", padx=2, pady=2)
 J2ΘEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J2ΘEntryField.grid(row=2, column=1, padx=2, pady=2)
 J2αEntryField = Entry(dhParamsFrame, width=5, justify="center")
@@ -13338,7 +13337,7 @@ J2aEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J2aEntryField.grid(row=2, column=4, padx=2, pady=2)
 
 # J3 row
-Label(dhParamsFrame, font=("Arial", 8), text="J3").grid(row=3, column=0, sticky="w", padx=5, pady=2)
+Label(dhParamsFrame, font=("Arial", 8), text="J3").grid(row=3, column=0, sticky="w", padx=2, pady=2)
 J3ΘEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J3ΘEntryField.grid(row=3, column=1, padx=2, pady=2)
 J3αEntryField = Entry(dhParamsFrame, width=5, justify="center")
@@ -13349,7 +13348,7 @@ J3aEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J3aEntryField.grid(row=3, column=4, padx=2, pady=2)
 
 # J4 row
-Label(dhParamsFrame, font=("Arial", 8), text="J4").grid(row=4, column=0, sticky="w", padx=5, pady=2)
+Label(dhParamsFrame, font=("Arial", 8), text="J4").grid(row=4, column=0, sticky="w", padx=2, pady=2)
 J4ΘEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J4ΘEntryField.grid(row=4, column=1, padx=2, pady=2)
 J4αEntryField = Entry(dhParamsFrame, width=5, justify="center")
@@ -13360,7 +13359,7 @@ J4aEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J4aEntryField.grid(row=4, column=4, padx=2, pady=2)
 
 # J5 row
-Label(dhParamsFrame, font=("Arial", 8), text="J5").grid(row=5, column=0, sticky="w", padx=5, pady=2)
+Label(dhParamsFrame, font=("Arial", 8), text="J5").grid(row=5, column=0, sticky="w", padx=2, pady=2)
 J5ΘEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J5ΘEntryField.grid(row=5, column=1, padx=2, pady=2)
 J5αEntryField = Entry(dhParamsFrame, width=5, justify="center")
@@ -13371,7 +13370,7 @@ J5aEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J5aEntryField.grid(row=5, column=4, padx=2, pady=2)
 
 # J6 row
-Label(dhParamsFrame, font=("Arial", 8), text="J6").grid(row=6, column=0, sticky="w", padx=5, pady=2)
+Label(dhParamsFrame, font=("Arial", 8), text="J6").grid(row=6, column=0, sticky="w", padx=2, pady=2)
 J6ΘEntryField = Entry(dhParamsFrame, width=5, justify="center")
 J6ΘEntryField.grid(row=6, column=1, padx=2, pady=2)
 J6αEntryField = Entry(dhParamsFrame, width=5, justify="center")
@@ -13384,8 +13383,8 @@ J6aEntryField.grid(row=6, column=4, padx=2, pady=2)
 # ============================================================================
 # Tool Frame Offset Frame (Row 1, Column 3)
 # ============================================================================
-toolFrameFrame = LabelFrame(tab3, text="Tool Frame Offset", padding=10)
-toolFrameFrame.grid(row=1, column=3, sticky="nsew", padx=5, pady=5)
+toolFrameFrame = LabelFrame(tab3, text="Tool Frame Offset", padding=5)
+toolFrameFrame.grid(row=1, column=3, sticky="nsew", padx=2, pady=2)
 
 toolFrameFrame.grid_columnconfigure(0, weight=1)
 toolFrameFrame.grid_columnconfigure(1, weight=1)
@@ -13418,37 +13417,37 @@ TFrxEntryField.grid(row=1, column=5, padx=2, pady=2)
 
 # Checkbox row
 DisableWristCbut = Checkbutton(toolFrameFrame, text="Disable Wrist Rotation - Linear Moves", variable=CAL['DisableWristRotVal'])
-DisableWristCbut.grid(row=2, column=0, columnspan=6, sticky="w", padx=5, pady=5)
+DisableWristCbut.grid(row=2, column=0, columnspan=6, sticky="w", padx=2, pady=2)
 
 # ============================================================================
 # Defaults Frame (Row 0-1, Column 4)
 # ============================================================================
-defaultsFrame = LabelFrame(tab3, text="Defaults", padding=10)
-defaultsFrame.grid(row=0, column=4, rowspan=2, sticky="nsew", padx=5, pady=5)
+defaultsFrame = LabelFrame(tab3, text="Defaults", padding=5)
+defaultsFrame.grid(row=0, column=4, rowspan=2, sticky="nsew", padx=2, pady=2)
 
 defaultsFrame.grid_columnconfigure(0, weight=1)
 
 loadAR4Mk2But = Button(defaultsFrame, text="Load AR4-MK3 Defaults", width=26, command=LoadAR4Mk3default)
-loadAR4Mk2But.grid(row=0, column=0, padx=5, pady=5)
+loadAR4Mk2But.grid(row=0, column=0, padx=2, pady=2)
 
 loadAR4Mk2But = Button(defaultsFrame, text="Load AR4-MK2 Defaults", width=26, command=LoadAR4Mk2default)
-loadAR4Mk2But.grid(row=1, column=0, padx=5, pady=5)
+loadAR4Mk2But.grid(row=1, column=0, padx=2, pady=2)
 
 loadAR4But = Button(defaultsFrame, text="Load AR4 Defaults", width=26, command=LoadAR4default)
-loadAR4But.grid(row=2, column=0, padx=5, pady=5)
+loadAR4But.grid(row=2, column=0, padx=2, pady=2)
 
 loadAR3But = Button(defaultsFrame, text="Load AR3 Defaults", width=26, command=LoadAR3default)
-loadAR3But.grid(row=3, column=0, padx=5, pady=5)
+loadAR3But.grid(row=3, column=0, padx=2, pady=2)
 
 saveCalBut = Button(defaultsFrame, text="SAVE", width=26, command=SaveAndApplyCalibration)
-saveCalBut.grid(row=4, column=0, padx=5, pady=(10, 30)) # 10 pixels above, 30 below
+saveCalBut.grid(row=4, column=0, padx=2, pady=(10, 30)) # 10 pixels above, 30 below
 
 
 loadCustomBut = Button(defaultsFrame, text="Load Custom Calibration", width=26, command=load_custom_calibration)
-loadCustomBut .grid(row=5, column=0, padx=5, pady=(30, 5))
+loadCustomBut .grid(row=5, column=0, padx=2, pady=(30, 5))
 
 saveCustomBut = Button(defaultsFrame, text="Save Custom Calibration", width=26, command=save_custom_calibration)
-saveCustomBut.grid(row=6, column=0, padx=5, pady=5)
+saveCustomBut.grid(row=6, column=0, padx=2, pady=2)
 
 
 
@@ -13831,8 +13830,8 @@ tab4.grid_columnconfigure(3, weight=1)  # Remaining space
 # ============================================================================
 # 5v IO BOARD Frame (Row 0, Column 0)
 # ============================================================================
-ioBoardFrame = LabelFrame(tab4, text="5v IO BOARD", padding=10)
-ioBoardFrame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+ioBoardFrame = LabelFrame(tab4, text="5v IO BOARD", padding=5)
+ioBoardFrame.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
 
 ioBoardFrame.grid_columnconfigure(0, weight=0, minsize=60)   # Servo buttons
 ioBoardFrame.grid_columnconfigure(1, weight=0, minsize=10)   # = labels
@@ -13997,95 +13996,95 @@ DO6offEntryField.grid(row=11, column=6, padx=2, pady=1)
 # ============================================================================
 # AUX COM DEVICE Frame (Row 0, Column 1)
 # ============================================================================
-auxComFrame = LabelFrame(tab4, text="AUX COM DEVICE", padding=10)
-auxComFrame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+auxComFrame = LabelFrame(tab4, text="AUX COM DEVICE", padding=5)
+auxComFrame.grid(row=0, column=1, sticky="nsew", padx=2, pady=2)
 
 auxComFrame.grid_columnconfigure(0, weight=1)
 
 # Aux Com Port
-Label(auxComFrame, text="Aux Com Port").grid(row=0, column=0, sticky="w", padx=(5,2), pady=5)
+Label(auxComFrame, text="Aux Com Port").grid(row=0, column=0, sticky="w", padx=(5,2), pady=2)
 com3PortEntryField = Entry(auxComFrame, width=10, justify="left")
-com3PortEntryField.grid(row=0, column=1, sticky="w", padx=(2,5), pady=5)
+com3PortEntryField.grid(row=0, column=1, sticky="w", padx=(2,5), pady=2)
 
 # Char to Read
-Label(auxComFrame, text="Char to Read").grid(row=1, column=0, sticky="w", padx=(5,2), pady=5)
+Label(auxComFrame, text="Char to Read").grid(row=1, column=0, sticky="w", padx=(5,2), pady=2)
 com3charPortEntryField = Entry(auxComFrame, width=10, justify="left")
-com3charPortEntryField.grid(row=1, column=1, sticky="w", padx=(2,5), pady=5)
+com3charPortEntryField.grid(row=1, column=1, sticky="w", padx=(2,5), pady=2)
 
 # Test button
 comPortBut3 = Button(auxComFrame, text="Test Aux COM Device", command=TestAuxCom)
-comPortBut3.grid(row=2, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+comPortBut3.grid(row=2, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 # Output
 com3outPortEntryField = Entry(auxComFrame, width=25, justify="center")
-com3outPortEntryField.grid(row=3, column=0, columnspan=2, sticky="ew", padx=5, pady=5)
+com3outPortEntryField.grid(row=3, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 # ============================================================================
 # MODBUS DEVICE Frame (Row 0, Column 2)
 # ============================================================================
-modbusFrame = LabelFrame(tab4, text="MODBUS DEVICE", padding=10)
-modbusFrame.grid(row=0, column=2, sticky="nsew", padx=5, pady=5)
+modbusFrame = LabelFrame(tab4, text="MODBUS DEVICE", padding=5)
+modbusFrame.grid(row=0, column=2, sticky="nsew", padx=2, pady=2)
 
 modbusFrame.grid_columnconfigure(0, weight=1)
 
 # Slave ID
-Label(modbusFrame, text="Slave ID").grid(row=0, column=0, sticky="w", padx=(5,2), pady=5)
+Label(modbusFrame, text="Slave ID").grid(row=0, column=0, sticky="w", padx=(5,2), pady=2)
 MBslaveEntryField = Entry(modbusFrame, width=10, justify="left")
-MBslaveEntryField.grid(row=0, column=1, sticky="w", padx=(2,5), pady=5)
+MBslaveEntryField.grid(row=0, column=1, sticky="w", padx=(2,5), pady=2)
 
 # Modbus Address
-Label(modbusFrame, text="Modbus Address").grid(row=1, column=0, sticky="w", padx=(5,2), pady=5)
+Label(modbusFrame, text="Modbus Address").grid(row=1, column=0, sticky="w", padx=(5,2), pady=2)
 MBaddressEntryField = Entry(modbusFrame, width=10, justify="left")
-MBaddressEntryField.grid(row=1, column=1, sticky="w", padx=(2,5), pady=5)
+MBaddressEntryField.grid(row=1, column=1, sticky="w", padx=(2,5), pady=2)
 
 # Operation Value
-Label(modbusFrame, text="Operation Value").grid(row=2, column=0, sticky="w", padx=(5,2), pady=5)
+Label(modbusFrame, text="Operation Value").grid(row=2, column=0, sticky="w", padx=(5,2), pady=2)
 MBoperValEntryField = Entry(modbusFrame, width=10, justify="left")
-MBoperValEntryField.grid(row=2, column=1, sticky="w", padx=(2,5), pady=5)
+MBoperValEntryField.grid(row=2, column=1, sticky="w", padx=(2,5), pady=2)
 
 # Buttons
 MBreadCoilBut = Button(modbusFrame, text="Read Coil", width=30, command=MBreadCoil)
-MBreadCoilBut.grid(row=3, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+MBreadCoilBut.grid(row=3, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 MBreadDinputBut = Button(modbusFrame, text="Read Discrete Input", width=30, command=MBreadInput)
-MBreadDinputBut.grid(row=4, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+MBreadDinputBut.grid(row=4, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 MBreadHoldRegBut = Button(modbusFrame, text="Read Holding Register", width=30, command=MBreadHoldReg)
-MBreadHoldRegBut.grid(row=5, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+MBreadHoldRegBut.grid(row=5, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 MBreadInputRegBut = Button(modbusFrame, text="Read Input Register", width=30, command=MBreadInputReg)
-MBreadInputRegBut.grid(row=6, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+MBreadInputRegBut.grid(row=6, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 MBwriteCoilBut = Button(modbusFrame, text="Write Coil", width=30, command=MBwriteCoil)
-MBwriteCoilBut.grid(row=7, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+MBwriteCoilBut.grid(row=7, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 MBwriteRegBut = Button(modbusFrame, text="Write Register", width=30, command=MBwriteReg)
-MBwriteRegBut.grid(row=8, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+MBwriteRegBut.grid(row=8, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 # Output Response
-Label(modbusFrame, text="Output Response:").grid(row=9, column=0, columnspan=2, sticky="w", padx=5, pady=(10,2))
+Label(modbusFrame, text="Output Response:").grid(row=9, column=0, columnspan=2, sticky="w", padx=2, pady=(10,2))
 MBoutputEntryField = Entry(modbusFrame, width=33, justify="center")
-MBoutputEntryField.grid(row=10, column=0, columnspan=2, sticky="ew", padx=5, pady=2)
+MBoutputEntryField.grid(row=10, column=0, columnspan=2, sticky="ew", padx=2, pady=2)
 
 # ============================================================================
 # Information Frame (Row 1, Column 0-2, spans 3 columns)
 # ============================================================================
-infoFrame = LabelFrame(tab4, text="Information", padding=10)
-infoFrame.grid(row=1, column=0, columnspan=3, sticky="ew", padx=5, pady=5)
+infoFrame = LabelFrame(tab4, text="Information", padding=5)
+infoFrame.grid(row=1, column=0, columnspan=3, sticky="ew", padx=2, pady=2)
 
 infoFrame.grid_columnconfigure(0, weight=1)
 
-Label(infoFrame, text="The following IO are available when using the default 5v Nano board for IO:   Inputs = 2-7  /  Outputs = 8-13  /  Servos = A0-A7").grid(row=0, column=0, sticky="w", padx=5, pady=2)
+Label(infoFrame, text="The following IO are available when using the default 5v Nano board for IO:   Inputs = 2-7  /  Outputs = 8-13  /  Servos = A0-A7").grid(row=0, column=0, sticky="w", padx=2, pady=2)
 
-Label(infoFrame, text="The following IO are available when using the default 5v Mega board for IO:   Inputs = 0-27  /  Outputs = 28-53  /  Servos = A0-A7").grid(row=1, column=0, sticky="w", padx=5, pady=2)
+Label(infoFrame, text="The following IO are available when using the default 5v Mega board for IO:   Inputs = 0-27  /  Outputs = 28-53  /  Servos = A0-A7").grid(row=1, column=0, sticky="w", padx=2, pady=2)
 
-Label(infoFrame, text="Please review this tutorial video on using 5v IO boards:").grid(row=2, column=0, sticky="w", padx=5, pady=2)
+Label(infoFrame, text="Please review this tutorial video on using 5v IO boards:").grid(row=2, column=0, sticky="w", padx=2, pady=2)
 
 link2 = Label(infoFrame, font=("Arial", 8), text="https://youtu.be/76F6dS4ar8Y?si=Z6NstZy1zNeHgtCF", foreground="blue", cursor="hand2")
 link2.bind("<Button-1>", lambda event: webbrowser.open(link2.cget("text")))
-link2.grid(row=3, column=0, sticky="w", padx=5, pady=2)
+link2.grid(row=3, column=0, sticky="w", padx=2, pady=2)
 
-Label(infoFrame, text="5v board inputs are high impedance and susceptable to floating voltage - inputs use a pullup resistor and will read high when nothing is connected - its best to connect your input signal to GND and if/wait for the input signal to = 0").grid(row=4, column=0, sticky="w", padx=5, pady=2)
+Label(infoFrame, text="5v board inputs are high impedance and susceptable to floating voltage - inputs use a pullup resistor and will read high when nothing is connected - its best to connect your input signal to GND and if/wait for the input signal to = 0").grid(row=4, column=0, sticky="w", padx=2, pady=2)
 
 
 
@@ -14408,8 +14407,8 @@ tab5.grid_columnconfigure(1, weight=0, minsize=300)  # Position Registers
 # ============================================================================
 # Registers Container (Column 0)
 # ============================================================================
-registersFrame = LabelFrame(tab5, text="Registers", padding=10)
-registersFrame.grid(row=0, column=0, sticky="nsew", padx=5, pady=5)
+registersFrame = LabelFrame(tab5, text="Registers", padding=5)
+registersFrame.grid(row=0, column=0, sticky="nsew", padx=2, pady=2)
 
 registersFrame.grid_columnconfigure(0, weight=0)  # Entry field column
 registersFrame.grid_columnconfigure(1, weight=1)  # Label column
@@ -14418,103 +14417,103 @@ registersFrame.grid_columnconfigure(1, weight=1)  # Label column
 R1EntryField = Entry(registersFrame, width=4, justify="center")
 R1EntryField.grid(row=0, column=0, padx=2, pady=2)
 R1Lab = Label(registersFrame, text="R1")
-R1Lab.grid(row=0, column=1, sticky="w", padx=5, pady=2)
+R1Lab.grid(row=0, column=1, sticky="w", padx=2, pady=2)
 
 # R2
 R2EntryField = Entry(registersFrame, width=4, justify="center")
 R2EntryField.grid(row=1, column=0, padx=2, pady=2)
 R2Lab = Label(registersFrame, text="R2")
-R2Lab.grid(row=1, column=1, sticky="w", padx=5, pady=2)
+R2Lab.grid(row=1, column=1, sticky="w", padx=2, pady=2)
 
 # R3
 R3EntryField = Entry(registersFrame, width=4, justify="center")
 R3EntryField.grid(row=2, column=0, padx=2, pady=2)
 R3Lab = Label(registersFrame, text="R3")
-R3Lab.grid(row=2, column=1, sticky="w", padx=5, pady=2)
+R3Lab.grid(row=2, column=1, sticky="w", padx=2, pady=2)
 
 # R4
 R4EntryField = Entry(registersFrame, width=4, justify="center")
 R4EntryField.grid(row=3, column=0, padx=2, pady=2)
 R4Lab = Label(registersFrame, text="R4")
-R4Lab.grid(row=3, column=1, sticky="w", padx=5, pady=2)
+R4Lab.grid(row=3, column=1, sticky="w", padx=2, pady=2)
 
 # R5
 R5EntryField = Entry(registersFrame, width=4, justify="center")
 R5EntryField.grid(row=4, column=0, padx=2, pady=2)
 R5Lab = Label(registersFrame, text="R5")
-R5Lab.grid(row=4, column=1, sticky="w", padx=5, pady=2)
+R5Lab.grid(row=4, column=1, sticky="w", padx=2, pady=2)
 
 # R6
 R6EntryField = Entry(registersFrame, width=4, justify="center")
 R6EntryField.grid(row=5, column=0, padx=2, pady=2)
 R6Lab = Label(registersFrame, text="R6")
-R6Lab.grid(row=5, column=1, sticky="w", padx=5, pady=2)
+R6Lab.grid(row=5, column=1, sticky="w", padx=2, pady=2)
 
 # R7
 R7EntryField = Entry(registersFrame, width=4, justify="center")
 R7EntryField.grid(row=6, column=0, padx=2, pady=2)
 R7Lab = Label(registersFrame, text="R7")
-R7Lab.grid(row=6, column=1, sticky="w", padx=5, pady=2)
+R7Lab.grid(row=6, column=1, sticky="w", padx=2, pady=2)
 
 # R8
 R8EntryField = Entry(registersFrame, width=4, justify="center")
 R8EntryField.grid(row=7, column=0, padx=2, pady=2)
 R8Lab = Label(registersFrame, text="R8")
-R8Lab.grid(row=7, column=1, sticky="w", padx=5, pady=2)
+R8Lab.grid(row=7, column=1, sticky="w", padx=2, pady=2)
 
 # R9
 R9EntryField = Entry(registersFrame, width=4, justify="center")
 R9EntryField.grid(row=8, column=0, padx=2, pady=2)
 R9Lab = Label(registersFrame, text="R9")
-R9Lab.grid(row=8, column=1, sticky="w", padx=5, pady=2)
+R9Lab.grid(row=8, column=1, sticky="w", padx=2, pady=2)
 
 # R10
 R10EntryField = Entry(registersFrame, width=4, justify="center")
 R10EntryField.grid(row=9, column=0, padx=2, pady=2)
 R10Lab = Label(registersFrame, text="R10")
-R10Lab.grid(row=9, column=1, sticky="w", padx=5, pady=2)
+R10Lab.grid(row=9, column=1, sticky="w", padx=2, pady=2)
 
 # R11
 R11EntryField = Entry(registersFrame, width=4, justify="center")
 R11EntryField.grid(row=10, column=0, padx=2, pady=2)
 R11Lab = Label(registersFrame, text="R11")
-R11Lab.grid(row=10, column=1, sticky="w", padx=5, pady=2)
+R11Lab.grid(row=10, column=1, sticky="w", padx=2, pady=2)
 
 # R12
 R12EntryField = Entry(registersFrame, width=4, justify="center")
 R12EntryField.grid(row=11, column=0, padx=2, pady=2)
 R12Lab = Label(registersFrame, text="R12")
-R12Lab.grid(row=11, column=1, sticky="w", padx=5, pady=2)
+R12Lab.grid(row=11, column=1, sticky="w", padx=2, pady=2)
 
 # R13
 R13EntryField = Entry(registersFrame, width=4, justify="center")
 R13EntryField.grid(row=12, column=0, padx=2, pady=2)
 R13Lab = Label(registersFrame, text="R13")
-R13Lab.grid(row=12, column=1, sticky="w", padx=5, pady=2)
+R13Lab.grid(row=12, column=1, sticky="w", padx=2, pady=2)
 
 # R14
 R14EntryField = Entry(registersFrame, width=4, justify="center")
 R14EntryField.grid(row=13, column=0, padx=2, pady=2)
 R14Lab = Label(registersFrame, text="R14")
-R14Lab.grid(row=13, column=1, sticky="w", padx=5, pady=2)
+R14Lab.grid(row=13, column=1, sticky="w", padx=2, pady=2)
 
 # R15
 R15EntryField = Entry(registersFrame, width=4, justify="center")
 R15EntryField.grid(row=14, column=0, padx=2, pady=2)
 R15Lab = Label(registersFrame, text="R15")
-R15Lab.grid(row=14, column=1, sticky="w", padx=5, pady=2)
+R15Lab.grid(row=14, column=1, sticky="w", padx=2, pady=2)
 
 # R16
 R16EntryField = Entry(registersFrame, width=4, justify="center")
 R16EntryField.grid(row=15, column=0, padx=2, pady=2)
 R16Lab = Label(registersFrame, text="R16")
-R16Lab.grid(row=15, column=1, sticky="w", padx=5, pady=2)
+R16Lab.grid(row=15, column=1, sticky="w", padx=2, pady=2)
 
 # ============================================================================
 # Position Registers Container (Column 1)
 # ============================================================================
-posRegistersFrame = LabelFrame(tab5, text="Position Registers", padding=10)
-posRegistersFrame.grid(row=0, column=1, sticky="nsew", padx=5, pady=5)
+posRegistersFrame = LabelFrame(tab5, text="Position Registers", padding=5)
+posRegistersFrame.grid(row=0, column=1, sticky="nsew", padx=2, pady=2)
 
 posRegistersFrame.grid_columnconfigure(0, weight=0, minsize=35)  # X
 posRegistersFrame.grid_columnconfigure(1, weight=0, minsize=35)  # Y

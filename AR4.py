@@ -147,13 +147,17 @@ from tkinter import *
 # Import ttkbootstrap widgets to replace ttk widgets
 import ttkbootstrap as ttk_bootstrap
 from ttkbootstrap import Style as BootstrapStyle
-from ttkbootstrap import *  # This makes ttkbootstrap widgets available globally
+# from ttkbootstrap import *  # This makes ttkbootstrap widgets available globally
 from tkinter import simpledialog, messagebox
 import tkinter as tk
 from tkinter import ttk, Misc
 from tkinter import filedialog as fd
 import tkinter.messagebox
 from PIL import Image, ImageTk
+
+LabelFrame = ttk_bootstrap.Labelframe 
+Label = ttk_bootstrap.Label 
+Frame = ttk_bootstrap.Frame
 
 import vtk
 from vtkmodules.tk.vtkTkRenderWindowInteractor import vtkTkRenderWindowInteractor

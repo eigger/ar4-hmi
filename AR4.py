@@ -4806,6 +4806,93 @@ else:
 
 ##end xbox ###################################################################################################################################################
 
+## keyboard
+################################################################################
+### KEYBOARD CONTROL IMPLEMENTATION (Cross-Platform)
+################################################################################
+
+# 키 상태 추적을 위한 변수 (중복 전송 방지)
+key_states = {
+    # 'Left': False, 'Right': False, 
+    # 'Up': False, 'Down': False,
+    'q': False, 'e': False, #Z-, Z+
+    'w': False, 's': False, #X-, X+
+    'a': False, 'd': False, #Y-, Y+
+    'u': False, 'j': False, #RZ-, RZ+
+    'i': False, 'k': False, #RX-, RX+
+    'o': False, 'l': False  #RY-, RY+
+}
+
+def handle_keypress(event):
+    if isinstance(event.widget, (tk.Entry, ttk.Entry, tk.Text)):
+        return
+
+    """키가 눌렸을 때 실행: 이동 명령 시작"""
+    key = event.keysym
+    print(f"press key = {key}")
+    if key in key_states and key_states[key]:
+        return
+    
+    key_states[key] = True
+    
+    if key == 'q':
+        SelZjogNeg(None) 
+    elif key == 'e':
+        SelZjogPos(None)
+
+    elif key == 'w':
+        SelXjogNeg(None) 
+    elif key == 's':
+        SelXjogPos(None)
+
+    elif key == 'a':
+        SelYjogNeg(None) 
+    elif key == 'd':
+        SelYjogPos(None)
+
+    elif key == 'u':
+        SelRzjogNeg(None) 
+    elif key == 'j':
+        SelRzjogPos(None)
+
+    elif key == 'u':
+        SelRxjogNeg(None) 
+    elif key == 'j':
+        SelRxjogPos(None)
+
+    elif key == 'u':
+        SelRyjogNeg(None) 
+    elif key == 'j':
+        SelRyjogPos(None)
+
+    
+        
+def handle_keyrelease(event):
+    """키를 뗐을 때 실행: 이동 멈춤 (StopJog)"""
+    key = event.keysym
+    print(f"release key = {key}")
+    if key in key_states:
+        if key_states[key]:
+          key_states[key] = False
+          StopJog(None)
+          
+
+def setup_keyboard_binds(root_window):
+    """메인 윈도우에 키보드 이벤트 바인딩"""
+    # 키를 누를 때
+    root_window.bind('<KeyPress>', handle_keypress)
+    # 키를 뗄 때
+    root_window.bind('<KeyRelease>', handle_keyrelease)
+    
+    # 포커스 문제 해결을 위해 마우스 클릭 시 메인 창 포커스 설정
+    root_window.bind('<Button-1>', lambda e: root_window.focus_set())
+
+# 실행: setup_keyboard_binds(root) 를 mainloop() 이전에 호출
+setup_keyboard_binds(root)
+
+## end keybaord
+
+
 def send_serial_command(cmd):
     #global progRunning
     RUN['ser'].write(cmd.encode())    
